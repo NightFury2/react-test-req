@@ -50,7 +50,7 @@ npm run start
 
 ## Демонстрация
 
-Данный пример можно посмотреть на [heroku](https://react-redux.herokuapp.com)
+Данный пример можно посмотреть на [heroku](https://react-test-req.herokuapp.com)
 
 ---
 – Вова Лунёв, [@nightfuru2](https://vk.com/nightfury2)
