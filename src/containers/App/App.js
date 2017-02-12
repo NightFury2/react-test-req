@@ -3,6 +3,7 @@ import Helmet from 'react-helmet';
 import config from '../../config';
 
 import MenuContent from '../../components/MenuContent/MenuContent';
+import RightMenuIcon from '../../components/RightMenuIcon/RightMenuIcon';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -10,7 +11,7 @@ import spacing from 'material-ui/styles/spacing';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import IconButton from 'material-ui/IconButton';
-import NavogationMenu from 'material-ui/svg-icons/navigation/menu';
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import {
@@ -84,7 +85,8 @@ export default class App extends Component {
               <AppBar
                  style={{position: 'fixed'}}
                  title={this.props.title ? this.props.title : 'Загрузка...'}
-                 iconElementLeft={<IconButton onTouchTap={this.menuOpen}><NavogationMenu/></IconButton>}
+                 iconElementLeft={<IconButton onTouchTap={this.menuOpen}><NavigationMenu/></IconButton>}
+                 iconClassNameRight={<RightMenuIcon/>}
               />
               <Drawer
                 width={340}
