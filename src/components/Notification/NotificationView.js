@@ -17,8 +17,8 @@ export default class NotificationView extends Component {
        <Popover
           open={this.props.open}
           anchorEl={this.props.anchorEl}
-          anchorOrigin={{horizontal: 'middle', vertical: 'bottom'}}
-          targetOrigin={{horizontal: 'middle', vertical: 'top'}}
+          anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+          targetOrigin={{horizontal: 'right', vertical: 'top'}}
           onRequestClose={this.props.closeNotification}
       >
         <List>

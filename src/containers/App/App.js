@@ -3,7 +3,7 @@ import Helmet from 'react-helmet';
 import config from '../../config';
 
 import MenuContent from '../../components/MenuContent/MenuContent';
-import RightMenuIcon from '../../components/RightMenuIcon/RightMenuIcon';
+import RightMenuComponent from '../../components/RightMenuComponent/RightMenuComponent';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -86,7 +86,7 @@ export default class App extends Component {
                  style={{position: 'fixed'}}
                  title={this.props.title ? this.props.title : 'Загрузка...'}
                  iconElementLeft={<IconButton onTouchTap={this.menuOpen}><NavigationMenu/></IconButton>}
-                 iconClassNameRight={<RightMenuIcon/>}
+                 iconElementRight={<RightMenuComponent/>}
               />
               <Drawer
                 width={340}
