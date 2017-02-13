@@ -20,7 +20,7 @@ export default class NotificationContainer extends Component {
       <NotificationList count={this.props.count} setCountBadges={this.props.setCountBadges} data={this.props.data}/>
       : (
         <List>
-          <Subheader>Уведомлений нет</Subheader>
+          <Subheader style={{margin: '20px'}}>Уведомлений нет</Subheader>
         </List>
       );
     return (

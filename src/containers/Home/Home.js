@@ -40,7 +40,7 @@ export default class Home extends Component {
     this.props.removeNotification(arr);
   };
   changeNotificationTitle = (event) => {
-    this.setTitle({titleNotification: event.target.value});
+    this.setState({titleNotification: event.target.value});
   };
   handleAddNotification = () => {
     const title = this.state.titleNotification;

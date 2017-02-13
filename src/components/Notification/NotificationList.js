@@ -13,15 +13,11 @@ export default class NotificationList extends Component {
     setCountBadges: React.PropTypes.func.isRequired
   };
   render() {
-    const notification = this.props.data.some((unread) => {return unread === true;}) ?
-      this.props.data.map(item => {
-        if (item.unread) {
-          return <NotificationItem {...item} key={item.id}/>;
-        }
-      }) :
-      (
-        <ListItem primaryText="Новых оповещений нет"/>
-      );
+    const notification = this.props.data.map(item => {
+      if (item.unread) {
+        return <NotificationItem {...item} key={item.id}/>;
+      }
+    });
     return (
       <List>
         <Subheader>Уведомления</Subheader>
