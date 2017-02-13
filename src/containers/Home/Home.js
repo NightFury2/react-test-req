@@ -32,13 +32,14 @@ export default class Home extends Component {
     addNotification: React.PropTypes.func.isRequired
   };
   state = {
+    data: this.props.data,
     titleNotification: '',
     openSnackbar: true,
     autoHideDuration: 4000
   };
   componentDidMount() {
-    if (this.props.data.length > 0) {
-      this.props.data.map(item => {
+    if (this.state.data.length > 0) {
+      this.state.data.map(item => {
         if (item.unread) {
           return <Snackbar open={this.state.openSnackbar}
                            action='Подробнее'
@@ -49,9 +50,12 @@ export default class Home extends Component {
       });
     }
   }
-  componentWillReceiveProps() {
-    if (this.props.data.length > 0) {
-      this.props.data.map(item => {
+  componentWillReceiveProps(nextProps) {
+    if (this.state.data !== nextProps.data) {
+      this.setState(nextProps.data);
+    }
+    if (nextProps.data.length > 0) {
+      this.state.data.map(item => {
         if (item.unread) {
           return <Snackbar open={this.state.openSnackbar}
                            action='Подробнее'
@@ -63,7 +67,7 @@ export default class Home extends Component {
     }
   }
   handleRemoveNotification = () => {
-    const arr = this.props.data;
+    const arr = this.state.data;
     arr.length = 0;
     this.props.removeNotification(arr);
   };
@@ -72,7 +76,7 @@ export default class Home extends Component {
   };
   handleAddNotification = () => {
     const title = this.state.titleNotification;
-    const arr = this.props.data;
+    const arr = this.state.data;
     arr.push({
       id: 13,
       title: title,
