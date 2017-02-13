@@ -61,15 +61,15 @@ export default class Home extends Component {
       <div className="container" style={{marginTop: '60px'}}>
         <div className="col s12">
           <h1 className="center">Добавление оповещений</h1>
-          <form onSubmit={this.handleAddNotification}>
+          <div>
             <TextField className={style.inputs}
                        floatingLabelStyle={{fontSize: '18px'}}
                        floatingLabelFocusStyle={{fontSize: '18px'}}
                        onChange={this.changeNotificationTitle}
                        floatingLabelText="Введите название события..."
             />
-            <RaisedButton type="submit" style={styleButton.formButton} primary label="Отправить"/>
-          </form><br/>
+            <RaisedButton onTouchTap={this.handleAddNotification} style={styleButton.formButton} primary label="Отправить"/>
+          </div><br/>
           <div className="row">
             <div className="col s12 m7">
               <RaisedButton style={styleButton.settingButton} fullWidth primary label="Пометить все события прочитанными"/><br/>
