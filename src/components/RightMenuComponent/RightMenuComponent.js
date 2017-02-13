@@ -12,17 +12,10 @@ export default class RightMenuComponent extends React.Component {
     count: React.PropTypes.number,
     setCountBadges: React.PropTypes.func.isRequired
   };
-  componentDidMount() {
-    const arr = this.props.notification.data.filter((item) => {return item.unread === true;});
+  componentWillReceiveProps(nextProps) {
+    const arr = nextProps.notification.data.filter((item) => {return item.unread === true;});
     this.props.setCountBadges(arr.length);
   }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.notification.data) {
-      const arr = nextProps.notification.data.filter((item) => {return item.unread === true;});
-      this.props.setCountBadges(arr.length);
-    }
-  }
-
   render() {
     const viewBadge = this.props.count > 0 ? 'visible' : 'hidden';
     return (
