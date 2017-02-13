@@ -11,7 +11,7 @@ export default class NotificationList extends Component {
     data: PropTypes.array
   };
   render() {
-    const notification = this.props.data.map(item => <NotificationItem {...item} key={item.id}/>);
+    const notification = this.props.data ? this.props.data.map(item => <NotificationItem {...item} key={item.id}/>) : '';
     return (
       <List>
         <Subheader>Уведомления</Subheader>
