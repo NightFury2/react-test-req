@@ -3,7 +3,6 @@ import React from 'react';
 import Notification from '../Notification/Notification';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import Badge from 'material-ui/Badge';
-import SearchIcon from 'material-ui/svg-icons/action/search';
 
 export default class RightMenuComponent extends React.Component {
   static propTypes = {
@@ -18,7 +17,6 @@ export default class RightMenuComponent extends React.Component {
     return (
       <Toolbar style={{background: 'transparent', marginTop: '-5px'}}>
         <ToolbarGroup>
-          <SearchIcon style={{color: 'white'}}/>
           <Badge
             badgeContent={this.props.count}
             secondary
