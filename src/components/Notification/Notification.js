@@ -16,8 +16,6 @@ export default class Notification extends Component {
     open: React.PropTypes.bool,
     data: React.PropTypes.array,
     setOpen: React.PropTypes.func.isRequired,
-    count: React.PropTypes.number,
-    setCountBadges: React.PropTypes.func.isRequired
   };
   state = {
     anchorEl: {}
@@ -41,8 +39,6 @@ export default class Notification extends Component {
           open={this.props.open}
           data={this.props.data}
           anchorEl={this.state.anchorEl}
-          setCountBadges={this.props.setCountBadges}
-          count={this.props.count}
           closeNotification={this.handleCloseNotification}
          />
          <IconButton

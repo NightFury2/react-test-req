@@ -12,6 +12,17 @@ export default class RightMenuComponent extends React.Component {
     count: React.PropTypes.number,
     setCountBadges: React.PropTypes.func.isRequired
   };
+  componentDidMount() {
+    const arr = this.props.notification.data.filter((item) => {return item.unread === true;});
+    this.props.setCountBadges(arr.length);
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.notification.data !== nextProps.notification.data) {
+      const arr = nextProps.notification.data.filter((item) => {return item.unread === true;});
+      this.props.setCountBadges(arr.length);
+    }
+  }
+
   render() {
     const viewBadge = this.props.count > 0 ? 'visible' : 'hidden';
     return (
@@ -23,7 +34,7 @@ export default class RightMenuComponent extends React.Component {
             badgeStyle={{top: '25px', right: '25px', visibility: viewBadge}}
             style={{marginBottom: '14px'}}
           >
-            <Notification count={this.props.count} setCountBadges={this.props.setCountBadges} setOpen={this.props.setOpen} data={this.props.notification.data} open={this.props.notification.open}/>
+            <Notification setOpen={this.props.setOpen} data={this.props.notification.data} open={this.props.notification.open}/>
           </Badge>
         </ToolbarGroup>
       </Toolbar>

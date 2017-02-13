@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import Toggle from 'material-ui/Toggle';
 import TextField from 'material-ui/TextField';
-import Snackbar from 'material-ui/Snackbar';
 
 import {setOpen, removeNotification, addNotification} from '../../redux/modules/notification';
 import {connect} from 'react-redux';
@@ -34,36 +33,10 @@ export default class Home extends Component {
   state = {
     data: this.props.data,
     titleNotification: '',
-    openSnackbar: true,
-    autoHideDuration: 4000
   };
-  componentDidMount() {
-    if (this.state.data.length > 0) {
-      this.state.data.map(item => {
-        if (item.unread) {
-          return <Snackbar open={this.state.openSnackbar}
-                           action='Подробнее'
-                           message={item.title}
-                           autoHideDuration={this.state.autoHideDuration}
-          />
-        }
-      });
-    }
-  }
   componentWillReceiveProps(nextProps) {
     if (this.state.data !== nextProps.data) {
       this.setState(nextProps.data);
-    }
-    if (nextProps.data.length > 0) {
-      this.state.data.map(item => {
-        if (item.unread) {
-          return <Snackbar open={this.state.openSnackbar}
-                           action='Подробнее'
-                           message={item.title}
-                           autoHideDuration={this.state.autoHideDuration}
-          />
-        }
-      });
     }
   }
   handleRemoveNotification = () => {

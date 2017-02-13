@@ -11,12 +11,10 @@ export default class NotificationContainer extends Component {
     data: React.PropTypes.array,
     anchorEl: PropTypes.object.isRequired,
     closeNotification: PropTypes.func.isRequired,
-    count: React.PropTypes.number,
-    setCountBadges: React.PropTypes.func.isRequired
   };
   render() {
     const notification = this.props.data.length > 0 ?
-      <NotificationList count={this.props.count} setCountBadges={this.props.setCountBadges} data={this.props.data}/>
+      <NotificationList data={this.props.data}/>
       : (
         <List>
           <ListItem
