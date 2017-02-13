@@ -17,7 +17,7 @@ export default class NotificationList extends Component {
       if (item.unread) {
         return <NotificationItem {...item} key={item.id}/>;
       }
-    }).length = 5;
+    });
     return (
       <List>
         <Subheader>Уведомления</Subheader>
