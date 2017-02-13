@@ -7,14 +7,23 @@ import moment from 'moment';
 import 'moment/locale/ru';
 
 export default class NotoficationItem extends React.Component {
+  static propTypes = {
+    count: React.PropTypes.number,
+    data: React.PropTypes.array,
+    setCountBadges: React.PropTypes.func.isRequired
+  };
+  componentDidMount() {
+    if (this.props.data.unread) {
+      this.props.setCountBadges(this.props.count + 1);
+    }
+  }
   render() {
-    const notification = this.props;
     return (
       <div>
-        {notification.unread &&
+        {this.props.data.unread &&
           <ListItem
-            primaryText={notification.title}
-            secondaryText={<time dateTime={notification.datetime}>{moment(notification.datetime).fromNow()}</time>}
+            primaryText={this.props.data.title}
+            secondaryText={<time dateTime={this.props.data.datetime}>{moment(this.props.data.datetime).fromNow()}</time>}
             leftAvatar={<Avatar icon={<NotificationIcon/>}/>}
           />
         }

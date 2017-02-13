@@ -1,7 +1,9 @@
 const NOTIFICATION_MENU = 'NOTIFICATION_MENU';
+const COUNT_BADGE = 'COUNT_BADGE';
 
 const initialState = {
   open: false,
+  count: 0,
   data: [
     {
       id: 17,
@@ -55,6 +57,11 @@ export default function notification(state = initialState, action = {}) {
         ...state,
         open: action.open
       };
+    case COUNT_BADGE:
+      return {
+        ...state,
+        count: action.count
+      };
     default:
       return state;
   }
@@ -62,4 +69,8 @@ export default function notification(state = initialState, action = {}) {
 
 export function setOpen(open) {
   return {type: NOTIFICATION_MENU, open};
+}
+
+export function setCountBadges(count) {
+  return {type: COUNT_BADGE, count};
 }

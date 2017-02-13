@@ -9,7 +9,9 @@ export default class NotificationContainer extends Component {
     open: PropTypes.bool.isRequired,
     data: React.PropTypes.array,
     anchorEl: PropTypes.object.isRequired,
-    closeNotification: PropTypes.func.isRequired
+    closeNotification: PropTypes.func.isRequired,
+    count: React.PropTypes.number,
+    setCountBadges: React.PropTypes.func.isRequired
   };
   render() {
     return (
@@ -20,7 +22,7 @@ export default class NotificationContainer extends Component {
           targetOrigin={{horizontal: 'right', vertical: 'top'}}
           onRequestClose={this.props.closeNotification}
       >
-         <NotificationList data={this.props.data}/>
+         <NotificationList count={this.props.count} setCountBadges={this.props.setCountBadges} data={this.props.data}/>
       </Popover>
     );
   }

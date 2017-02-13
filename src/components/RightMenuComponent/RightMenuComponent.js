@@ -10,19 +10,22 @@ export default class RightMenuComponent extends React.Component {
     // notification
     notification: React.PropTypes.object,
     setOpen: React.PropTypes.func.isRequired,
+    count: React.PropTypes.number,
+    setCountBadges: React.PropTypes.func.isRequired
   };
   render() {
+    const viewBadge = this.props.count > 0 ? 'visible: none' : '';
     return (
       <Toolbar style={{background: 'transparent', marginTop: '-5px'}}>
         <ToolbarGroup>
           <SearchIcon style={{color: 'white'}}/>
           <Badge
-            badgeContent={4}
+            badgeContent={this.props.count}
             secondary
-            badgeStyle={{top: '25px', right: '25px'}}
+            badgeStyle={{top: '25px', right: '25px', viewBadge}}
             style={{marginBottom: '14px'}}
           >
-            <Notification setOpen={this.props.setOpen} data={this.props.notification.data} open={this.props.notification.open}/>
+            <Notification count={this.props.count} setCountBadges={this.props.setCountBadges} setOpen={this.props.setOpen} data={this.props.notification.data} open={this.props.notification.open}/>
           </Badge>
         </ToolbarGroup>
       </Toolbar>

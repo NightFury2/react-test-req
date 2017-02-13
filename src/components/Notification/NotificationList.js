@@ -9,9 +9,11 @@ import Subheader from 'material-ui/Subheader';
 export default class NotificationList extends Component {
   static propTypes = {
     data: React.PropTypes.array,
+    count: React.PropTypes.number,
+    setCountBadges: React.PropTypes.func.isRequired
   };
   render() {
-    const notification = this.props.data ? this.props.data.map(item => <NotificationItem {...item} key={item.id}/>) : '';
+    const notification = this.props.data ? this.props.data.map(item => <NotificationItem count={this.props.count} setCountBadges={this.props.setCountBadges} {...item} key={item.id}/>) : '';
     return (
       <List>
         <Subheader>Уведомления</Subheader>

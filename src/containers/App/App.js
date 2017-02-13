@@ -23,7 +23,7 @@ import {
 import {fade} from 'material-ui/utils/colorManipulator';
 
 import {setTitle} from '../../redux/modules/appBar';
-import {setOpen} from '../../redux/modules/notification';
+import {setOpen, setCountBadges} from '../../redux/modules/notification';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 
@@ -55,7 +55,7 @@ injectTapEventPlugin();
     title: state.appBar.title,
     notification: state.notification
   }),
-  {setTitle, setOpen, pushState: push})
+  {setTitle, setOpen, setCountBadges, pushState: push})
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
@@ -64,6 +64,7 @@ export default class App extends Component {
     // notification
     notification: PropTypes.object,
     setOpen: PropTypes.func.isRequired,
+    setCountBadges: PropTypes.func.isRequired,
     // appBar
     title: PropTypes.string,
     setTitle: PropTypes.func,
@@ -91,7 +92,7 @@ export default class App extends Component {
                  style={{position: 'fixed'}}
                  title={this.props.title ? this.props.title : 'Загрузка...'}
                  iconElementLeft={<IconButton onTouchTap={this.menuOpen}><NavigationMenu/></IconButton>}
-                 iconElementRight={<RightMenuComponent notification={this.props.notification} setOpen={this.props.setOpen}/>}
+                 iconElementRight={<RightMenuComponent count={this.props.notification.count} setCountBadges={this.props.setCountBadges} notification={this.props.notification} setOpen={this.props.setOpen}/>}
               />
               <Drawer
                 width={340}
