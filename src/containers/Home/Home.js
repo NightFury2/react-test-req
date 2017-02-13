@@ -63,6 +63,7 @@ export default class Home extends Component {
           <h1 className="center">Добавление оповещений</h1>
           <div>
             <TextField className={style.inputs}
+                       value={this.state.titleNotification}
                        floatingLabelStyle={{fontSize: '18px'}}
                        floatingLabelFocusStyle={{fontSize: '18px'}}
                        onChange={this.changeNotificationTitle}

@@ -18,7 +18,6 @@ export default class NotificationList extends Component {
         return <NotificationItem {...item} key={item.id}/>;
       }
     });
-    console.log(this.props.data);
     return (
       <List>
         <Subheader>Уведомления</Subheader>
