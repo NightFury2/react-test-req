@@ -33,7 +33,8 @@ export default class Home extends Component {
   state = {
     data: this.props.data,
     titleNotification: '',
-    id: 20
+    id: 20,
+    errorTextFieldMessage: ''
   };
   componentWillReceiveProps(nextProps) {
     if (this.state.data !== nextProps.data) {
@@ -60,8 +61,10 @@ export default class Home extends Component {
         unread: true,
         datetime: new Date(),
       });
-      this.setState({titleNotification: ''});
+      this.setState({titleNotification: '', errorTextFieldMessage: ''});
       this.props.addNotification(arr);
+    } else {
+      this.setState({errorTextFieldMessage: 'Введите не меньше 3 символов'});
     }
   };
   render() {
@@ -73,6 +76,7 @@ export default class Home extends Component {
           <h1 className="center">Добавление оповещений</h1>
           <div>
             <TextField className={style.inputs}
+                       errorText={this.state.errorTextFieldMessage}
                        value={this.state.titleNotification}
                        floatingLabelStyle={{fontSize: '18px'}}
                        floatingLabelFocusStyle={{fontSize: '18px'}}
