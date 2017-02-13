@@ -17,7 +17,7 @@ export default class RightMenuComponent extends React.Component {
     this.props.setCountBadges(arr.length);
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.notification.data !== nextProps.notification.data) {
+    if (nextProps.notification.data) {
       const arr = nextProps.notification.data.filter((item) => {return item.unread === true;});
       this.props.setCountBadges(arr.length);
     }
