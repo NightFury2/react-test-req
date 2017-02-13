@@ -5,7 +5,7 @@ import Toggle from 'material-ui/Toggle';
 import TextField from 'material-ui/TextField';
 
 
-import {setOpen} from '../../redux/modules/notification';
+import {setOpen, removeNotification, addNotification} from '../../redux/modules/notification';
 import {connect} from 'react-redux';
 
 const styleButton = {
@@ -19,13 +19,40 @@ const styleButton = {
 
 @connect(
   state => ({
-    open: state.notification.open
+    open: state.notification.open,
+    data: state.notification.data
   }),
-  {setOpen})
+  {setOpen, removeNotification, addNotification})
 export default class Home extends Component {
   static propTypes = {
     open: React.PropTypes.bool,
-    setOpen: React.PropTypes.func.isRequired
+    data: React.PropTypes.array,
+    setOpen: React.PropTypes.func.isRequired,
+    removeNotification: React.PropTypes.func.isRequired,
+    addNotification: React.PropTypes.func.isRequired
+  };
+  state = {
+    titleNotification: ''
+  };
+  handleRemoveNotification = () => {
+    const arr = this.props.data;
+    arr.length = 0;
+    this.props.removeNotification(arr);
+  };
+  changeNotificationTitle = (event) => {
+    this.setTitle({titleNotification: event.target.value});
+  };
+  handleAddNotification = () => {
+    const title = this.state.titleNotification;
+    const arr = this.props.data;
+    arr.push({
+      id: 13,
+      title: title,
+      unread: true,
+      datetime: new Date(),
+    });
+    this.setState({titleNotification: ''});
+    this.props.addNotification(arr);
   };
   render() {
     const style = require('./Home.scss');
@@ -34,14 +61,14 @@ export default class Home extends Component {
       <div className="container" style={{marginTop: '60px'}}>
         <div className="col s12">
           <h1 className="center">Добавление оповещений</h1>
-          <form>
-            <TextField className={style.inputs} floatingLabelText="Введите название события..."/>
-            <RaisedButton style={styleButton.formButton} primary label="Отправить"/>
+          <form onSubmit={this.handleAddNotification}>
+            <TextField className={style.inputs} onChange={this.changeNotificationTitle} floatingLabelText="Введите название события..."/>
+            <RaisedButton type="submit" style={styleButton.formButton} primary label="Отправить"/>
           </form><br/>
           <div className="row">
-            <div className="col s12 m4">
+            <div className="col s12 m7">
               <RaisedButton style={styleButton.settingButton} fullWidth primary label="Пометить все события прочитанными"/><br/>
-              <RaisedButton style={styleButton.settingButton} fullWidth primary label="Удалить все события"/><br/>
+              <RaisedButton style={styleButton.settingButton} fullWidth primary onTouchTap={this.handleRemoveNotification} label="Удалить все события"/><br/>
               <Toggle toggled={this.props.open}
                       defaultToggled={this.props.open}
                       onToggle={() => this.props.setOpen(!this.props.open)}

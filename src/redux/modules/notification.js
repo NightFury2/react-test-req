@@ -1,5 +1,7 @@
 const NOTIFICATION_MENU = 'NOTIFICATION_MENU';
 const COUNT_BADGE = 'COUNT_BADGE';
+const REMOVE_NOTIFICATION = 'REMOVE_NOTIFICATION';
+const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
 
 const initialState = {
   open: false,
@@ -62,6 +64,16 @@ export default function notification(state = initialState, action = {}) {
         ...state,
         count: action.count
       };
+    case REMOVE_NOTIFICATION:
+      return {
+        ...state,
+        data: action.data
+      };
+    case ADD_NOTIFICATION:
+      return {
+        ...state,
+        data: action.data
+      };
     default:
       return state;
   }
@@ -73,4 +85,12 @@ export function setOpen(open) {
 
 export function setCountBadges(count) {
   return {type: COUNT_BADGE, count};
+}
+
+export function removeNotification(data) {
+  return {type: REMOVE_NOTIFICATION, data};
+}
+
+export function addNotification(data) {
+  return {type: ADD_NOTIFICATION, data};
 }
