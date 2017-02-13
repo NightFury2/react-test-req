@@ -62,7 +62,12 @@ export default class Home extends Component {
         <div className="col s12">
           <h1 className="center">Добавление оповещений</h1>
           <form onSubmit={this.handleAddNotification}>
-            <TextField className={style.inputs} onChange={this.changeNotificationTitle} floatingLabelText="Введите название события..."/>
+            <TextField className={style.inputs}
+                       floatingLabelStyle={{fontSize: '18px'}}
+                       floatingLabelFocusStyle={{fontSize: '18px'}}
+                       onChange={this.changeNotificationTitle}
+                       floatingLabelText="Введите название события..."
+            />
             <RaisedButton type="submit" style={styleButton.formButton} primary label="Отправить"/>
           </form><br/>
           <div className="row">

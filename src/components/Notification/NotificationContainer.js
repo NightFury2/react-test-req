@@ -3,8 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import NotificationList from './NotificationList';
 
 import Popover from 'material-ui/Popover/Popover';
-import {List} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
+import {List, ListItem} from 'material-ui/List';
 
 export default class NotificationContainer extends Component {
   static propTypes = {
@@ -20,7 +19,10 @@ export default class NotificationContainer extends Component {
       <NotificationList count={this.props.count} setCountBadges={this.props.setCountBadges} data={this.props.data}/>
       : (
         <List>
-          <Subheader style={{margin: '20px'}}>Уведомлений нет</Subheader>
+          <ListItem
+            primaryText={'Показать все уведомления'}
+            disabled
+          />
         </List>
       );
     return (
