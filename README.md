@@ -1,5 +1,7 @@
 # React Test Request
 
+[![Demo on Heroku](https://img.shields.io/badge/demo-heroku-brightgreen.svg?style=flat-square)](https://react-test-req.herokuapp.com/)
+
 ---
 
 ## About
