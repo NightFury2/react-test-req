@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import NotificationView from './NotificationView';
+import NotificationContainer from './NotificationContainer';
 
 import IconButton from 'material-ui/IconButton';
 import NotificationIcon from 'material-ui/svg-icons/social/notifications';
@@ -11,29 +11,32 @@ const styleIcon = {
 };
 
 export default class Notification extends Component {
+  static propTypes = {
+    // notification
+    open: React.PropTypes.bool,
+    data: React.PropTypes.array,
+    setOpen: React.PropTypes.func.isRequired,
+  };
   state = {
-    open: false,
     anchorEl: {}
   };
   handleOpenNotification = (event) => {
     // This prevents ghost click.
     event.preventDefault();
+    this.props.setOpen(true);
     this.setState({
-      open: true,
       anchorEl: event.currentTarget,
     });
   };
   handleCloseNotification = () => {
-    this.setState({
-      open: false,
-    });
+    this.props.setOpen(false);
   };
   render() {
     const notification = this.state.open ? <NotificationIcon/> : <NotificationNoneIcon/>;
     return (
        <div>
-         <NotificationView
-          open={this.state.open}
+         <NotificationContainer
+          open={this.props.open}
           anchorEl={this.state.anchorEl}
           closeNotification={this.handleCloseNotification}
          />
