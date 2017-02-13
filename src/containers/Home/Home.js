@@ -48,15 +48,17 @@ export default class Home extends Component {
     this.setState({titleNotification: event.target.value});
   };
   handleAddNotification = () => {
-    const title = this.state.titleNotification;
-    const arr = this.state.data;
-    arr.push({
-      title: title,
-      unread: true,
-      datetime: new Date(),
-    });
-    this.setState({titleNotification: ''});
-    this.props.addNotification(arr);
+    if (this.state.titleNotification.length > 3) {
+      const title = this.state.titleNotification;
+      const arr = this.state.data;
+      arr.push({
+        title: title,
+        unread: true,
+        datetime: new Date(),
+      });
+      this.setState({titleNotification: ''});
+      this.props.addNotification(arr);
+    }
   };
   render() {
     const style = require('./Home.scss');

@@ -92,7 +92,14 @@ export default class App extends Component {
                  style={{position: 'fixed'}}
                  title={this.props.title ? this.props.title : 'Загрузка...'}
                  iconElementLeft={<IconButton onTouchTap={this.menuOpen}><NavigationMenu/></IconButton>}
-                 iconElementRight={<RightMenuComponent count={this.props.notification.count} setCountBadges={this.props.setCountBadges} notification={this.props.notification} setOpen={this.props.setOpen}/>}
+                 iconElementRight={
+                   <RightMenuComponent count={this.props.notification.count}
+                                       setCountBadges={this.props.setCountBadges}
+                                       open={this.props.notification.open}
+                                       data={this.props.notification.data.filter(item => {return item.unread === true;})}
+                                       setOpen={this.props.setOpen}
+                   />
+                 }
               />
               <Drawer
                 width={340}

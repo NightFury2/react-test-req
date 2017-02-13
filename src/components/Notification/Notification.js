@@ -20,6 +20,9 @@ export default class Notification extends Component {
   state = {
     anchorEl: {}
   };
+  componentWillReceiveProps() {
+
+  }
   handleOpenNotification = (event) => {
     // This prevents ghost click.
     event.preventDefault();

@@ -7,27 +7,33 @@ import Badge from 'material-ui/Badge';
 export default class RightMenuComponent extends React.Component {
   static propTypes = {
     // notification
-    notification: React.PropTypes.object,
+    data: React.PropTypes.array,
+    open: React.PropTypes.bool,
     setOpen: React.PropTypes.func.isRequired,
-    count: React.PropTypes.number,
     setCountBadges: React.PropTypes.func.isRequired
   };
+  state = {
+    count: this.props.data.length
+  };
   componentWillReceiveProps(nextProps) {
-    const arr = nextProps.notification.data.filter((item) => {return item.unread === true;});
-    this.props.setCountBadges(arr.length);
+    this.setState({count: nextProps.data.length});
   }
   render() {
-    const viewBadge = this.props.count > 0 ? 'visible' : 'hidden';
+    console.log(this.state.count);
+    const viewBadge = this.state.count > 0 ? 'visible' : 'hidden';
     return (
       <Toolbar style={{background: 'transparent', marginTop: '-5px'}}>
         <ToolbarGroup>
           <Badge
-            badgeContent={this.props.count}
+            badgeContent={this.state.count}
             secondary
             badgeStyle={{top: '25px', right: '25px', visibility: viewBadge}}
             style={{marginBottom: '14px'}}
           >
-            <Notification setOpen={this.props.setOpen} data={this.props.notification.data} open={this.props.notification.open}/>
+            <Notification setOpen={this.props.setOpen}
+                          data={this.props.data}
+                          open={this.props.open}
+            />
           </Badge>
         </ToolbarGroup>
       </Toolbar>

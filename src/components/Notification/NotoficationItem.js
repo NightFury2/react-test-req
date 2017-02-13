@@ -7,10 +7,6 @@ import moment from 'moment';
 import 'moment/locale/ru';
 
 export default class NotoficationItem extends React.Component {
-  static propTypes = {
-    count: React.PropTypes.number,
-    setCountBadges: React.PropTypes.func.isRequired
-  };
   render() {
     const notification = this.props;
     return (
