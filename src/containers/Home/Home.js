@@ -33,6 +33,7 @@ export default class Home extends Component {
   state = {
     data: this.props.data,
     titleNotification: '',
+    id: 20
   };
   componentWillReceiveProps(nextProps) {
     if (this.state.data !== nextProps.data) {
@@ -51,7 +52,10 @@ export default class Home extends Component {
     if (this.state.titleNotification.length > 3) {
       const title = this.state.titleNotification;
       const arr = this.state.data;
+      const id = this.state.id;
+      this.setState({id: id + 1});
       arr.push({
+        id: id,
         title: title,
         unread: true,
         datetime: new Date(),

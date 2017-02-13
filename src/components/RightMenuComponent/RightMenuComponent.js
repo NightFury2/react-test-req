@@ -19,7 +19,6 @@ export default class RightMenuComponent extends React.Component {
     this.setState({count: nextProps.data.length});
   }
   render() {
-    console.log(this.state.count);
     const viewBadge = this.state.count > 0 ? 'visible' : 'hidden';
     return (
       <Toolbar style={{background: 'transparent', marginTop: '-5px'}}>
