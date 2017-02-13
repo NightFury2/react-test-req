@@ -7,6 +7,7 @@ import Popover from 'material-ui/Popover/Popover';
 export default class NotificationContainer extends Component {
   static propTypes = {
     open: PropTypes.bool.isRequired,
+    data: PropTypes.array,
     anchorEl: PropTypes.object.isRequired,
     closeNotification: PropTypes.func.isRequired
   };
@@ -19,7 +20,7 @@ export default class NotificationContainer extends Component {
           targetOrigin={{horizontal: 'right', vertical: 'top'}}
           onRequestClose={this.props.closeNotification}
       >
-         <NotificationList/>
+         <NotificationList data={this.props.data}/>
       </Popover>
     );
   }

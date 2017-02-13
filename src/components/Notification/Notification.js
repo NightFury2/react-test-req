@@ -37,6 +37,7 @@ export default class Notification extends Component {
        <div>
          <NotificationContainer
           open={this.props.open}
+          data={this.props.data}
           anchorEl={this.state.anchorEl}
           closeNotification={this.handleCloseNotification}
          />

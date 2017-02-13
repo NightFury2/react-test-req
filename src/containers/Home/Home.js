@@ -35,7 +35,7 @@ export default class Home extends Component {
         <div className="col s12">
           <h1 className="center">Добавление оповещений</h1>
           <form>
-            <TextField className={style.inputs} floatingLabelFixed="Введите название события..."/>
+            <TextField className={style.inputs} floatingLabelText="Введите название события..."/>
             <RaisedButton style={styleButton.formButton} primary label="Отправить"/>
           </form><br/>
           <div className="row">
