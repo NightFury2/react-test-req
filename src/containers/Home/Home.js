@@ -86,16 +86,38 @@ export default class Home extends Component {
             <RaisedButton onTouchTap={this.handleAddNotification} style={styleButton.formButton} primary label="Отправить"/>
           </div><br/>
           <div className="row">
-            <div className="col s12 m7">
-              <RaisedButton style={styleButton.settingButton} fullWidth primary label="Пометить все события прочитанными"/><br/>
-              <RaisedButton style={styleButton.settingButton} fullWidth primary onTouchTap={this.handleRemoveNotification} label="Удалить все события"/><br/>
+            <div className="col s12 m6">
+              <RaisedButton style={styleButton.settingButton}
+                            fullWidth
+                            primary
+                            label="Пометить все события прочитанными"
+              /><br/>
+              <RaisedButton style={styleButton.settingButton}
+                            fullWidth
+                            primary
+                            onTouchTap={this.handleRemoveNotification}
+                            label="Удалить все события"
+              /><br/>
               <Toggle toggled={this.props.open}
                       defaultToggled={this.props.open}
                       onToggle={() => this.props.setOpen(!this.props.open)}
                       style={styleButton.settingButton}
                       labelStyle={{fontSize: '20px'}}
                       labelPosition="right"
-                      label={textToggle + ' попап нотификации'}/>
+                      label={textToggle + ' попап нотификации'}
+              />
+            </div>
+            <div className="col s12 m6">
+              <Toggle toggled={this.props.open}
+                      defaultToggled={this.props.open}
+                      labelStyle={{fontSize: '20px'}}
+                      label={' все оповещения'}
+              /><br/>
+              <div className="row">
+                <div className="col s12">
+                  <h3>Оповещения</h3>
+                </div>
+              </div>
             </div>
           </div>
         </div>
