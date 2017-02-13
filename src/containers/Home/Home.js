@@ -78,7 +78,6 @@ export default class Home extends Component {
     const title = this.state.titleNotification;
     const arr = this.state.data;
     arr.push({
-      id: 13,
       title: title,
       unread: true,
       datetime: new Date(),
