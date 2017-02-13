@@ -14,7 +14,7 @@ export default class RightMenuComponent extends React.Component {
     setCountBadges: React.PropTypes.func.isRequired
   };
   render() {
-    const viewBadge = this.props.count > 0 ? 'visible: none' : '';
+    const viewBadge = this.props.count > 0 ? '' : 'visibility: hidden';
     return (
       <Toolbar style={{background: 'transparent', marginTop: '-5px'}}>
         <ToolbarGroup>

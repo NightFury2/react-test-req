@@ -13,7 +13,7 @@ export default class NotificationList extends Component {
     setCountBadges: React.PropTypes.func.isRequired
   };
   render() {
-    const notification = this.props.data ? this.props.data.map(item => <NotificationItem count={this.props.count} setCountBadges={this.props.setCountBadges} {...item} key={item.id}/>) : '';
+    const notification = this.props.data ? this.props.data.map(item => <NotificationItem count={this.props.count} setCountBadges={this.props.setCountBadges} data={...item} key={item.id}/>) : '';
     return (
       <List>
         <Subheader>Уведомления</Subheader>
