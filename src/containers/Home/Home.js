@@ -44,7 +44,7 @@ export default class Home extends Component {
               <RaisedButton style={styleButton.settingButton} fullWidth primary label="Удалить все события"/><br/>
               <Toggle toggled={this.props.open}
                       defaultToggled={this.props.open}
-                      onToggle={this.props.setOpen(!this.props.open)}
+                      onToggle={() => this.props.setOpen(!this.props.open)}
                       style={styleButton.settingButton}
                       labelStyle={{fontSize: '20px'}}
                       labelPosition="right"

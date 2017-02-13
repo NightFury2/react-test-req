@@ -2,7 +2,7 @@ const NOTIFICATION_MENU = 'NOTIFICATION_MENU';
 
 const initialState = {
   open: false,
-  date: [
+  data: [
     {
       id: 17,
       title: 'Test test test 17',
