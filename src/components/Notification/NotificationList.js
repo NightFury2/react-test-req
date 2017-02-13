@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 
 import NotificationItem from './NotoficationItem';
 
@@ -8,7 +8,7 @@ import Subheader from 'material-ui/Subheader';
 
 export default class NotificationList extends Component {
   static propTypes = {
-    data: PropTypes.array
+    data: React.PropTypes.array,
   };
   render() {
     const notification = this.props.data ? this.props.data.map(item => <NotificationItem {...item} key={item.id}/>) : '';

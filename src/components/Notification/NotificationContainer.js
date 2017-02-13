@@ -7,7 +7,7 @@ import Popover from 'material-ui/Popover/Popover';
 export default class NotificationContainer extends Component {
   static propTypes = {
     open: PropTypes.bool.isRequired,
-    data: PropTypes.array,
+    data: React.PropTypes.array,
     anchorEl: PropTypes.object.isRequired,
     closeNotification: PropTypes.func.isRequired
   };

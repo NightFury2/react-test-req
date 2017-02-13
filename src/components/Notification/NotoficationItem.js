@@ -10,11 +10,15 @@ export default class NotoficationItem extends React.Component {
   render() {
     const notification = this.props;
     return (
-      <ListItem
-        primaryText={notification.title}
-        secondaryText={<time dateTime={notification.datetime}>{moment(notification.datetime).fromNow()}</time>}
-        leftAvatar={<Avatar icon={<NotificationIcon/>}/>}
-      />
+      <div>
+        {notification.unread &&
+          <ListItem
+            primaryText={notification.title}
+            secondaryText={<time dateTime={notification.datetime}>{moment(notification.datetime).fromNow()}</time>}
+            leftAvatar={<Avatar icon={<NotificationIcon/>}/>}
+          />
+        }
+      </div>
     );
   }
 }
