@@ -74,39 +74,41 @@ export default class Home extends Component {
       <div className="container" style={{marginTop: '60px'}}>
         <div className="col s12">
           <h1 className="center">Добавление оповещений</h1>
-          <div>
-            <TextField className={style.inputs}
-                       errorText={this.state.errorTextFieldMessage}
-                       value={this.state.titleNotification}
-                       floatingLabelStyle={{fontSize: '18px'}}
-                       floatingLabelFocusStyle={{fontSize: '18px'}}
-                       onChange={this.changeNotificationTitle}
-                       floatingLabelText="Введите название события..."
-            />
-            <RaisedButton onTouchTap={this.handleAddNotification} style={styleButton.formButton} primary label="Отправить"/>
-          </div><br/>
           <div className="row">
             <div className="col s12 m6">
-              <RaisedButton style={styleButton.settingButton}
-                            fullWidth
-                            primary
-                            label="Пометить все события прочитанными"
-              /><br/>
-              <RaisedButton style={styleButton.settingButton}
-                            fullWidth
-                            primary
-                            onTouchTap={this.handleRemoveNotification}
-                            label="Удалить все события"
-              /><br/>
-              <Toggle toggled={this.props.open}
-                      defaultToggled={this.props.open}
-                      onToggle={() => this.props.setOpen(!this.props.open)}
-                      style={styleButton.settingButton}
-                      labelStyle={{fontSize: '20px'}}
-                      labelPosition="right"
-                      label={textToggle + ' попап нотификации'}
-              />
-            </div>
+              <div className="row">
+                <TextField className={style.inputs}
+                           errorText={this.state.errorTextFieldMessage}
+                           value={this.state.titleNotification}
+                           floatingLabelStyle={{fontSize: '18px'}}
+                           floatingLabelFocusStyle={{fontSize: '18px'}}
+                           onChange={this.changeNotificationTitle}
+                           floatingLabelText="Введите название события..."
+                />
+                <RaisedButton onTouchTap={this.handleAddNotification} style={styleButton.formButton} primary label="Отправить"/>
+              </div>
+              <div className="row">
+                <RaisedButton style={styleButton.settingButton}
+                              fullWidth
+                              primary
+                              label="Пометить все события прочитанными"
+                /><br/>
+                <RaisedButton style={styleButton.settingButton}
+                              fullWidth
+                              primary
+                              onTouchTap={this.handleRemoveNotification}
+                              label="Удалить все события"
+                /><br/>
+                <Toggle toggled={this.props.open}
+                        defaultToggled={this.props.open}
+                        onToggle={() => this.props.setOpen(!this.props.open)}
+                        style={styleButton.settingButton}
+                        labelStyle={{fontSize: '20px'}}
+                        labelPosition="right"
+                        label={textToggle + ' попап нотификации'}
+                />
+              </div>
+            </div><br/>
             <div className="col s12 m6">
               <Toggle toggled={this.props.open}
                       defaultToggled={this.props.open}
@@ -115,7 +117,7 @@ export default class Home extends Component {
               /><br/>
               <div className="row">
                 <div className="col s12">
-                  <h3>Оповещения</h3>
+                  <h3 className="center">Оповещения</h3>
                 </div>
               </div>
             </div>
