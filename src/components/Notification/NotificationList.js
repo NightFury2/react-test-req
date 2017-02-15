@@ -11,11 +11,7 @@ export default class NotificationList extends Component {
     data: React.PropTypes.array
   };
   render() {
-    const notification = this.props.data.map(item => {
-      if (item.unread) {
-        return <NotificationItem {...item} key={item.id}/>;
-      }
-    });
+    const notification = this.props.data.map(item => <NotificationItem {...item} key={item.id}/>);
     return (
       <List>
         <Subheader>Уведомления</Subheader>
