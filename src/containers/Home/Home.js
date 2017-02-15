@@ -55,7 +55,7 @@ export default class Home extends Component {
       const arr = this.state.data;
       const id = this.state.id;
       this.setState({id: id + 1});
-      arr.push({
+      arr.unshift({
         id: id,
         title: title,
         unread: true,

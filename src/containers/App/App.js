@@ -14,6 +14,9 @@ import IconButton from 'material-ui/IconButton';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
+import moment from 'moment';
+import 'moment/locale/ru';
+
 import {
   cyan500, cyan700,
   pinkA200,
@@ -23,7 +26,7 @@ import {
 import {fade} from 'material-ui/utils/colorManipulator';
 
 import {setTitle} from '../../redux/modules/appBar';
-import {setOpen, setCountBadges} from '../../redux/modules/notification';
+import {setOpen, setCountBadges, addNotification} from '../../redux/modules/notification';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 
@@ -55,7 +58,7 @@ injectTapEventPlugin();
     title: state.appBar.title,
     notification: state.notification
   }),
-  {setTitle, setOpen, setCountBadges, pushState: push})
+  {setTitle, setOpen, setCountBadges, addNotification, pushState: push})
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
@@ -65,6 +68,7 @@ export default class App extends Component {
     notification: PropTypes.object,
     setOpen: PropTypes.func.isRequired,
     setCountBadges: PropTypes.func.isRequired,
+    addNotification: PropTypes.func.isRequired,
     // appBar
     title: PropTypes.string,
     setTitle: PropTypes.func,
@@ -74,6 +78,8 @@ export default class App extends Component {
   };
   componentDidMount() {
     this.props.setTitle('Главная');
+    const arr = this.props.notification.data.sort((item1, item2) => moment(item1.datetime) < moment(item2.datetime));
+    this.props.addNotification(arr);
   }
   menuOpen = () => {
     this.setState({openMenu: true});
@@ -96,7 +102,7 @@ export default class App extends Component {
                    <RightMenuComponent count={this.props.notification.count}
                                        setCountBadges={this.props.setCountBadges}
                                        open={this.props.notification.open}
-                                       data={this.props.notification.data.filter(item => {return item.unread === true;})}
+                                       data={this.props.notification.data}
                                        setOpen={this.props.setOpen}
                    />
                  }

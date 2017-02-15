@@ -4,9 +4,6 @@ import Notification from '../Notification/Notification';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import Badge from 'material-ui/Badge';
 
-import moment from 'moment';
-import 'moment/locale/ru';
-
 export default class RightMenuComponent extends React.Component {
   static propTypes = {
     // notification
@@ -33,11 +30,7 @@ export default class RightMenuComponent extends React.Component {
             style={{marginBottom: '14px'}}
           >
             <Notification setOpen={this.props.setOpen}
-                          data={this.props.data.sort((item1, item2) => {
-                            if (moment(item1.datetime).fromNow() > moment(item2.datetime).fromNow()) return -1;
-                            if (moment(item1.datetime).fromNow() < moment(item2.datetime).fromNow()) return 1;
-                            return 0;
-                          })}
+                          data={this.props.data}
                           open={this.props.open}
             />
           </Badge>
