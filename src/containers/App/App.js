@@ -102,7 +102,7 @@ export default class App extends Component {
                    <RightMenuComponent count={this.props.notification.count}
                                        setCountBadges={this.props.setCountBadges}
                                        open={this.props.notification.open}
-                                       data={this.props.notification.data.filter(item => {return item.unread})}
+                                       data={this.props.notification.data.filter(item => {return item.unread;})}
                                        setOpen={this.props.setOpen}
                    />
                  }

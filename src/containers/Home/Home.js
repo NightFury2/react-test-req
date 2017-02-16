@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 
+import NotificationItem from '../../components/Notification/NotoficationItem';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import Toggle from 'material-ui/Toggle';
 import TextField from 'material-ui/TextField';
+import {List} from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
 
-import {setOpen, removeNotification, addNotification} from '../../redux/modules/notification';
+import {setOpen, removeNotification, addNotification, setOpenAllNotification} from '../../redux/modules/notification';
 import {connect} from 'react-redux';
 
 const styleButton = {
@@ -19,16 +23,19 @@ const styleButton = {
 @connect(
   state => ({
     open: state.notification.open,
-    data: state.notification.data
+    data: state.notification.data,
+    openAllNotification: state.notification.openAllNotification
   }),
-  {setOpen, removeNotification, addNotification})
+  {setOpen, removeNotification, setOpenAllNotification, addNotification})
 export default class Home extends Component {
   static propTypes = {
     open: React.PropTypes.bool,
+    openAllNotification: React.PropTypes.bool,
     data: React.PropTypes.array,
     setOpen: React.PropTypes.func.isRequired,
     removeNotification: React.PropTypes.func.isRequired,
-    addNotification: React.PropTypes.func.isRequired
+    addNotification: React.PropTypes.func.isRequired,
+    setOpenAllNotification: React.PropTypes.func.isRequired
   };
   state = {
     data: this.props.data,
@@ -43,7 +50,7 @@ export default class Home extends Component {
   }
   handleRemoveNotification = () => {
     const arr = this.state.data;
-    arr.length = 0;
+    arr.splice(0, arr.length);
     this.props.removeNotification(arr);
   };
   changeNotificationTitle = (event) => {
@@ -70,6 +77,7 @@ export default class Home extends Component {
   render() {
     const style = require('./Home.scss');
     const textToggle = this.props.open ? 'Скрыть' : 'Показать';
+    const styleShowAllNotification = this.props.openAllNotification ? 'block' : 'none';
     return (
       <div className="container" style={{marginTop: '60px'}}>
         <div className="col s12">
@@ -110,14 +118,20 @@ export default class Home extends Component {
               </div>
             </div><br/>
             <div className="col s12 m6">
-              <Toggle toggled={this.props.open}
-                      defaultToggled={this.props.open}
+              <Toggle toggled={this.props.openAllNotification}
+                      defaultToggled={this.props.openAllNotification}
+                      onToggle={() => this.props.setOpenAllNotification(!this.props.openAllNotification)}
                       labelStyle={{fontSize: '20px'}}
                       label={' все оповещения'}
               /><br/>
-              <div className="row">
+              <div className="row" style={{display: styleShowAllNotification}}>
                 <div className="col s12">
-                  <h3 className="center">Оповещения</h3>
+                  <List>
+                    <Subheader className="center">Оповещения</Subheader>
+                    {this.props.data.length > 0 &&
+                      this.props.data.map(item => <NotificationItem {...item} key={item.id}/>)
+                    }
+                  </List>
                 </div>
               </div>
             </div>
