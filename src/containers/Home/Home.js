@@ -77,7 +77,12 @@ export default class Home extends Component {
   };
   handleCheckAllNotification = () => {
     const arr = this.props.data.map(item => {
-      return item.unread = false;
+      return {
+        id: item.id,
+        title: item.title,
+        unread: false,
+        datetime: item.datetime
+      };
     });
     this.props.removeNotification(arr);
   };
