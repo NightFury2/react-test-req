@@ -4,7 +4,7 @@ import {ListItem} from 'material-ui/List';
 import NotificationIcon from 'material-ui/svg-icons/social/notifications';
 import DoneIcon from 'material-ui/svg-icons/action/done';
 import DoneAllIcon from 'material-ui/svg-icons/action/done-all';
-import cyan500 from 'material-ui/styles/colors';
+import cyan100 from 'material-ui/styles/colors';
 import Avatar from 'material-ui/Avatar';
 import moment from 'moment';
 import 'moment/locale/ru';
@@ -17,7 +17,7 @@ export default class NotoficationItem extends React.Component {
         {notification.unread &&
           <ListItem
             rightIcon={<DoneIcon/>}
-            style={{background: cyan500}}
+            hoverColor={cyan100}
             primaryText={notification.title}
             secondaryText={<time dateTime={notification.datetime}>{moment(notification.datetime).fromNow()}</time>}
             leftAvatar={<Avatar icon={<NotificationIcon/>}/>}

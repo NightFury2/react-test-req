@@ -56,6 +56,11 @@ export default class Home extends Component {
   changeNotificationTitle = (event) => {
     this.setState({titleNotification: event.target.value});
   };
+  handleCheckAllNotification = () => {
+    const arr = this.props.data.map(item => {
+      item.unread = false;
+    });
+  };
   handleAddNotification = () => {
     if (this.state.titleNotification.length > 3) {
       const title = this.state.titleNotification;
@@ -99,6 +104,7 @@ export default class Home extends Component {
               <div className="row">
                 <RaisedButton style={styleButton.settingButton}
                               fullWidth
+                              onTouchTap={this.handleCheckAllNotification}
                               primary
                               label="Пометить все события прочитанными"
                 /><br/>
