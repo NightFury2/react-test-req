@@ -26,7 +26,7 @@ import {
 import {fade} from 'material-ui/utils/colorManipulator';
 
 import {setTitle} from '../../redux/modules/appBar';
-import {setOpen, setCountBadges, addNotification, setOpenAllNotification} from '../../redux/modules/notification';
+import {setOpen, setCountBadges, addNotification} from '../../redux/modules/notification';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 
@@ -58,7 +58,7 @@ injectTapEventPlugin();
     title: state.appBar.title,
     notification: state.notification
   }),
-  {setTitle, setOpen, setCountBadges, addNotification, setOpenAllNotification, pushState: push})
+  {setTitle, setOpen, setCountBadges, addNotification, pushState: push})
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
@@ -69,7 +69,6 @@ export default class App extends Component {
     setOpen: PropTypes.func.isRequired,
     setCountBadges: PropTypes.func.isRequired,
     addNotification: PropTypes.func.isRequired,
-    setOpenAllNotification: PropTypes.func.isRequired,
     // appBar
     title: PropTypes.string,
     setTitle: PropTypes.func,
@@ -103,7 +102,6 @@ export default class App extends Component {
                    <RightMenuComponent count={this.props.notification.count}
                                        setCountBadges={this.props.setCountBadges}
                                        open={this.props.notification.open}
-                                       setOpenAllNotification={this.props.setOpenAllNotification}
                                        data={this.props.notification.data.filter(item => {return item.unread;})}
                                        setOpen={this.props.setOpen}
                    />

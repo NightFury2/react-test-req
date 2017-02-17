@@ -16,7 +16,6 @@ export default class Notification extends Component {
     open: React.PropTypes.bool,
     data: React.PropTypes.array,
     setOpen: React.PropTypes.func.isRequired,
-    setOpenAllNotification: React.PropTypes.func.isRequired,
   };
   state = {
     anchorEl: {}
@@ -43,7 +42,6 @@ export default class Notification extends Component {
           open={this.props.open}
           data={this.props.data}
           anchorEl={this.state.anchorEl}
-          setOpenAllNotification={this.props.setOpenAllNotification}
           closeNotification={this.handleCloseNotification}
          />
          <IconButton
