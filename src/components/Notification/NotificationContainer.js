@@ -18,7 +18,7 @@ export default class NotificationContainer extends Component {
       : (
         <List>
           <ListItem
-            primaryText={'Уведомлений нет'}
+            primaryText={'Новых уведомлений нет'}
             disabled
           />
         </List>

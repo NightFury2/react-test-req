@@ -57,9 +57,10 @@ export default class Home extends Component {
     this.setState({titleNotification: event.target.value});
   };
   handleCheckAllNotification = () => {
-    const arr = this.props.data.map(item => {
+    const arr = this.props.data.forEach(item => {
       item.unread = false;
     });
+    this.props.removeNotification(arr);
   };
   handleAddNotification = () => {
     if (this.state.titleNotification.length > 3) {
