@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import NotificationItem from './NotoficationItem';
 
 import {List, ListItem} from 'material-ui/List';
+import MenuItem from 'material-ui/MenuItem';
 import Subheader from 'material-ui/Subheader';
 
 
@@ -17,7 +18,7 @@ export default class NotificationList extends Component {
       <List>
         <Subheader>Уведомления</Subheader>
         {notification}
-        <ListItem
+        <MenuItem
           primaryText={'Показать все уведомления'}
           onTouchTap={this.props.setOpenAllNotification(true)}
         />
