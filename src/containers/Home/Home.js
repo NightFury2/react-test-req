@@ -43,11 +43,32 @@ export default class Home extends Component {
     id: 20,
     errorTextFieldMessage: ''
   };
+  componentDidMount() {
+    this.timer = setInterval(this.CreateNotification, 20000)
+  }
   componentWillReceiveProps(nextProps) {
     if (this.state.data !== nextProps.data) {
       this.setState(nextProps.data);
     }
   }
+  componentWillUnmount() {
+    clearInterval(this.timer)
+  }
+  CreateNotification = () => {
+    const title = () => {
+      return Math.random() * (1000 - 100) + 100;
+    };
+    const arr = this.state.data;
+    const id = this.state.id;
+    this.setState({id: id + 1});
+    arr.unshift({
+      id: id,
+      title: title,
+      unread: true,
+      datetime: new Date(),
+    });
+    this.props.addNotification(arr);
+  };
   handleRemoveNotification = () => {
     const arr = this.state.data;
     arr.splice(0, arr.length);
