@@ -55,9 +55,7 @@ export default class Home extends Component {
     clearInterval(this.timer)
   }
   CreateNotification = () => {
-    const title = () => {
-      return Math.random() * (1000 - 100) + 100;
-    };
+    const title = Math.random() * (1000 - 100) + 100;
     const arr = this.state.data;
     const id = this.state.id;
     this.setState({id: id + 1});
@@ -78,7 +76,7 @@ export default class Home extends Component {
     this.setState({titleNotification: event.target.value});
   };
   handleCheckAllNotification = () => {
-    const arr = this.props.data.forEach(item => {
+    const arr = this.props.data.map(item => {
       item.unread = false;
     });
     this.props.removeNotification(arr);
