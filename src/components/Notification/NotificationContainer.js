@@ -11,14 +11,15 @@ export default class NotificationContainer extends Component {
     data: React.PropTypes.array,
     anchorEl: PropTypes.object.isRequired,
     closeNotification: PropTypes.func.isRequired,
+    setOpenAllNotification: PropTypes.func.isRequired
   };
   render() {
     const notification = this.props.data.length > 0 ?
-      <NotificationList data={this.props.data}/>
+      <NotificationList setOpenAllNotification={this.props.setOpenAllNotification} data={this.props.data}/>
       : (
         <List>
           <ListItem
-            primaryText={'Показать все уведомления'}
+            primaryText={'Уведомлений нет'}
             disabled
           />
         </List>

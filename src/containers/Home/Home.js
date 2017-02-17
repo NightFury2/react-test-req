@@ -77,6 +77,7 @@ export default class Home extends Component {
   render() {
     const style = require('./Home.scss');
     const textToggle = this.props.open ? 'Скрыть' : 'Показать';
+    const textToggleAllNotification = this.props.openAllNotification ? 'Скрыть' : 'Показать';
     const styleShowAllNotification = this.props.openAllNotification ? 'block' : 'none';
     return (
       <div className="container" style={{marginTop: '60px'}}>
@@ -122,7 +123,7 @@ export default class Home extends Component {
                       defaultToggled={this.props.openAllNotification}
                       onToggle={() => this.props.setOpenAllNotification(!this.props.openAllNotification)}
                       labelStyle={{fontSize: '20px'}}
-                      label={' все оповещения'}
+                      label={textToggleAllNotification + ' все оповещения'}
               /><br/>
               <div className="row" style={{display: styleShowAllNotification}}>
                 <div className="col s12">

@@ -10,7 +10,8 @@ export default class RightMenuComponent extends React.Component {
     data: React.PropTypes.array,
     open: React.PropTypes.bool,
     setOpen: React.PropTypes.func.isRequired,
-    setCountBadges: React.PropTypes.func.isRequired
+    setCountBadges: React.PropTypes.func.isRequired,
+    setOpenAllNotification: React.PropTypes.func.isRequired
   };
   state = {
     count: this.props.data.length
@@ -32,6 +33,7 @@ export default class RightMenuComponent extends React.Component {
             <Notification setOpen={this.props.setOpen}
                           data={this.props.data}
                           open={this.props.open}
+                          setOpenAllNotification={this.props.setOpenAllNotification}
             />
           </Badge>
         </ToolbarGroup>

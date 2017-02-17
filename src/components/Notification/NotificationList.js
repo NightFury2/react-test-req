@@ -8,7 +8,8 @@ import Subheader from 'material-ui/Subheader';
 
 export default class NotificationList extends Component {
   static propTypes = {
-    data: React.PropTypes.array
+    data: React.PropTypes.array,
+    setOpenAllNotification: React.PropTypes.func.isRequired
   };
   render() {
     const notification = this.props.data.map(item => <NotificationItem {...item} key={item.id}/>);
@@ -18,6 +19,7 @@ export default class NotificationList extends Component {
         {notification}
         <ListItem
           primaryText={'Показать все уведомления'}
+          onTouchTap={this.props.setOpenAllNotification(true)}
         />
       </List>
     );
