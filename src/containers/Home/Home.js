@@ -56,7 +56,7 @@ export default class Home extends Component {
   }
   CreateNotification = () => {
     const title = Math.random() * (1000 - 100) + 100;
-    const arr = this.state.data;
+    const arr = this.props.data;
     const id = this.state.id;
     this.setState({id: id + 1});
     arr.unshift({
