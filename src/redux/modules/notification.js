@@ -2,7 +2,10 @@ const NOTIFICATION_MENU = 'NOTIFICATION_MENU';
 const SHOW_ALL_NOTIFICATION = 'SHOW_ALL_NOTIFICATION';
 const COUNT_BADGE = 'COUNT_BADGE';
 const REMOVE_NOTIFICATION = 'REMOVE_NOTIFICATION';
+const CHECK_ALL_NOTIFICATION = 'CHECK_ALL_NOTIFICATION';
+const CHECK_NOTIFICATION = 'CHECK_NOTIFICATION';
 const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
+const SORT_NOTIFICATION = 'SORT_NOTIFICATION';
 
 const initialState = {
   open: false,
@@ -81,6 +84,21 @@ export default function notification(state = initialState, action = {}) {
         ...state,
         data: action.data
       };
+    case CHECK_ALL_NOTIFICATION:
+      return {
+        ...state,
+        data: action.data
+      };
+    case CHECK_NOTIFICATION:
+      return {
+        ...state,
+        data: action.data
+      };
+    case SORT_NOTIFICATION:
+      return {
+        ...state,
+        data: action.data
+      };
     default:
       return state;
   }
@@ -94,14 +112,35 @@ export function setOpenAllNotification(openAllNotification) {
   return {type: SHOW_ALL_NOTIFICATION, openAllNotification};
 }
 
-export function setCountBadges(count) {
-  return {type: COUNT_BADGE, count};
+export function sortNotification(data) {
+  return {type: SORT_NOTIFICATION, data};
 }
-
+export function checkAllNotification(arr) {
+  const data = arr.map(item => {
+    return {
+      id: item.id,
+      title: item.title,
+      unread: false,
+      datetime: item.datetime
+    };
+  });
+  return {type: CHECK_ALL_NOTIFICATION, data};
+}
+export function checkNotification(arr, id) {
+  const data = arr.map(item => {
+    if (item.id === id) {
+      item.unread = false;
+    }
+    return item;
+  });
+  return {type: CHECK_NOTIFICATION, data};
+}
 export function removeNotification(data) {
+  data.splice(0, data.length);
   return {type: REMOVE_NOTIFICATION, data};
 }
 
-export function addNotification(data) {
+export function addNotification(data, item) {
+  data.unshift(item);
   return {type: ADD_NOTIFICATION, data};
 }

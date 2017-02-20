@@ -12,25 +12,17 @@ import 'moment/locale/ru';
 export default class NotoficationItem extends React.Component {
   render() {
     const notification = this.props;
+    const iconItem = notification.unread ? <DoneIcon/> : <DoneAllIcon/>;
     return (
       <div>
-        {notification.unread &&
-          <ListItem
-            rightIcon={<DoneIcon/>}
-            hoverColor={cyan100}
-            primaryText={notification.title}
-            secondaryText={<time dateTime={notification.datetime}>{moment(notification.datetime).fromNow()}</time>}
-            leftAvatar={<Avatar icon={<NotificationIcon/>}/>}
-          />
-        }
-        {!notification.unread &&
-          <ListItem
-            rightIcon={<DoneAllIcon/>}
-            primaryText={notification.title}
-            secondaryText={<time dateTime={notification.datetime}>{moment(notification.datetime).fromNow()}</time>}
-            leftAvatar={<Avatar icon={<NotificationIcon/>}/>}
-          />
-        }
+        <ListItem
+          rightIcon={iconItem}
+          hoverColor={cyan100}
+          onTouchTap={() => notification.checkNotification(notification.data, notification.id)}
+          primaryText={notification.title}
+          secondaryText={<time dateTime={notification.datetime}>{moment(notification.datetime).fromNow()}</time>}
+          leftAvatar={<Avatar icon={<NotificationIcon/>}/>}
+        />
       </div>
     );
   }

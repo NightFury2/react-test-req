@@ -11,10 +11,11 @@ export default class NotificationContainer extends Component {
     data: React.PropTypes.array,
     anchorEl: PropTypes.object.isRequired,
     closeNotification: PropTypes.func.isRequired,
+    checkNotification: React.PropTypes.func.isRequired,
   };
   render() {
     const notification = this.props.data.length > 0 ?
-      <NotificationList data={this.props.data}/>
+      <NotificationList checkNotification={this.props.checkNotification} data={this.props.data}/>
       : (
         <List>
           <ListItem

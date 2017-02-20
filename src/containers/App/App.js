@@ -26,7 +26,7 @@ import {
 import {fade} from 'material-ui/utils/colorManipulator';
 
 import {setTitle} from '../../redux/modules/appBar';
-import {setOpen, setCountBadges, addNotification} from '../../redux/modules/notification';
+import {setOpen, addNotification, sortNotification, checkNotification} from '../../redux/modules/notification';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 
@@ -56,30 +56,33 @@ injectTapEventPlugin();
 @connect(
   state => ({
     title: state.appBar.title,
-    notification: state.notification
+    data: state.notification.data,
+    open: state.notification.open,
   }),
-  {setTitle, setOpen, setCountBadges, addNotification, pushState: push})
+  {setTitle, setOpen, addNotification, checkNotification, sortNotification, pushState: push})
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
     // react-router-redux
     pushState: PropTypes.func.isRequired,
     // notification
-    notification: PropTypes.object,
+    data: PropTypes.array,
+    open: PropTypes.bool,
     setOpen: PropTypes.func.isRequired,
-    setCountBadges: PropTypes.func.isRequired,
     addNotification: PropTypes.func.isRequired,
+    sortNotification: PropTypes.func.isRequired,
+    checkNotification: PropTypes.func.isRequired,
     // appBar
     title: PropTypes.string,
     setTitle: PropTypes.func,
   };
   state = {
-    openMenu: false
+    openMenu: false,
   };
   componentDidMount() {
     this.props.setTitle('Главная');
-    const arr = this.props.notification.data.sort((item1, item2) => moment(item1.datetime) < moment(item2.datetime));
-    this.props.addNotification(arr);
+    const arr = this.props.data.sort((item1, item2) => moment(item1.datetime) < moment(item2.datetime));
+    this.props.sortNotification(arr);
   }
   menuOpen = () => {
     this.setState({openMenu: true});
@@ -99,10 +102,9 @@ export default class App extends Component {
                  title={this.props.title ? this.props.title : 'Загрузка...'}
                  iconElementLeft={<IconButton onTouchTap={this.menuOpen}><NavigationMenu/></IconButton>}
                  iconElementRight={
-                   <RightMenuComponent count={this.props.notification.count}
-                                       setCountBadges={this.props.setCountBadges}
-                                       open={this.props.notification.open}
-                                       data={this.props.notification.data.filter(item => {return item.unread;})}
+                   <RightMenuComponent checkNotification={this.props.checkNotification}
+                                       open={this.props.open}
+                                       data={this.props.data}
                                        setOpen={this.props.setOpen}
                    />
                  }

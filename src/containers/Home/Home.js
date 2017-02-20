@@ -8,7 +8,7 @@ import TextField from 'material-ui/TextField';
 import {List} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 
-import {setOpen, removeNotification, addNotification, setOpenAllNotification} from '../../redux/modules/notification';
+import {setOpen, removeNotification, addNotification, checkNotification, checkAllNotification, setOpenAllNotification} from '../../redux/modules/notification';
 import {connect} from 'react-redux';
 
 const styleButton = {
@@ -26,7 +26,7 @@ const styleButton = {
     data: state.notification.data,
     openAllNotification: state.notification.openAllNotification
   }),
-  {setOpen, removeNotification, setOpenAllNotification, addNotification})
+  {setOpen, removeNotification, checkAllNotification, checkNotification, setOpenAllNotification, addNotification})
 export default class Home extends Component {
   static propTypes = {
     open: React.PropTypes.bool,
@@ -35,71 +35,52 @@ export default class Home extends Component {
     setOpen: React.PropTypes.func.isRequired,
     removeNotification: React.PropTypes.func.isRequired,
     addNotification: React.PropTypes.func.isRequired,
-    setOpenAllNotification: React.PropTypes.func.isRequired
+    setOpenAllNotification: React.PropTypes.func.isRequired,
+    checkAllNotification: React.PropTypes.func.isRequired,
+    checkNotification: React.PropTypes.func.isRequired,
   };
   state = {
-    data: this.props.data,
     titleNotification: '',
     id: 20,
     errorTextFieldMessage: ''
   };
   componentDidMount() {
-    this.timer = setInterval(this.CreateNotification, 20000)
-  }
-  componentWillReceiveProps(nextProps) {
-    if (this.state.data !== nextProps.data) {
-      this.setState(nextProps.data);
-    }
+    this.timer = setInterval(this.CreateNotification, 20000);
   }
   componentWillUnmount() {
-    clearInterval(this.timer)
+    clearInterval(this.timer);
   }
   CreateNotification = () => {
     const title = Math.random() * (1000 - 100) + 100;
-    const arr = this.props.data;
     const id = this.state.id;
     this.setState({id: id + 1});
-    arr.unshift({
+    const item = {
       id: id,
       title: title,
       unread: true,
       datetime: new Date(),
-    });
-    this.props.addNotification(arr);
-  };
-  handleRemoveNotification = () => {
-    const arr = this.state.data;
-    arr.splice(0, arr.length);
-    this.props.removeNotification(arr);
+    };
+    this.props.addNotification(this.props.data, item);
   };
   changeNotificationTitle = (event) => {
     this.setState({titleNotification: event.target.value});
   };
   handleCheckAllNotification = () => {
-    const arr = this.props.data.map(item => {
-      return {
-        id: item.id,
-        title: item.title,
-        unread: false,
-        datetime: item.datetime
-      };
-    });
-    this.props.removeNotification(arr);
+    this.props.checkAllNotification(this.props.data);
   };
   handleAddNotification = () => {
     if (this.state.titleNotification.length > 3) {
       const title = this.state.titleNotification;
-      const arr = this.state.data;
       const id = this.state.id;
       this.setState({id: id + 1});
-      arr.unshift({
+      const item = {
         id: id,
         title: title,
         unread: true,
         datetime: new Date(),
-      });
+      };
       this.setState({titleNotification: '', errorTextFieldMessage: ''});
-      this.props.addNotification(arr);
+      this.props.addNotification(this.props.data, item);
     } else {
       this.setState({errorTextFieldMessage: 'Введите не меньше 3 символов'});
     }
@@ -136,7 +117,7 @@ export default class Home extends Component {
                 <RaisedButton style={styleButton.settingButton}
                               fullWidth
                               primary
-                              onTouchTap={this.handleRemoveNotification}
+                              onTouchTap={() => this.props.removeNotification(this.props.data)}
                               label="Удалить все события"
                 /><br/>
                 <Toggle toggled={this.props.open}
@@ -161,7 +142,7 @@ export default class Home extends Component {
                   <List>
                     <Subheader className="center">Оповещения</Subheader>
                     {this.props.data.length > 0 &&
-                      this.props.data.map(item => <NotificationItem {...item} key={item.id}/>)
+                      this.props.data.map(item => <NotificationItem data={this.props.data} checkNotification={this.props.checkNotification} {...item} key={item.id}/>)
                     }
                   </List>
                 </div>

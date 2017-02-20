@@ -16,13 +16,11 @@ export default class Notification extends Component {
     open: React.PropTypes.bool,
     data: React.PropTypes.array,
     setOpen: React.PropTypes.func.isRequired,
+    checkNotification: React.PropTypes.func.isRequired,
   };
   state = {
     anchorEl: {}
   };
-  componentWillReceiveProps() {
-
-  }
   handleOpenNotification = (event) => {
     // This prevents ghost click.
     event.preventDefault();
@@ -39,10 +37,11 @@ export default class Notification extends Component {
     return (
        <div>
          <NotificationContainer
-          open={this.props.open}
-          data={this.props.data}
-          anchorEl={this.state.anchorEl}
-          closeNotification={this.handleCloseNotification}
+            checkNotification={this.props.checkNotification}
+            open={this.props.open}
+            data={this.props.data}
+            anchorEl={this.state.anchorEl}
+            closeNotification={this.handleCloseNotification}
          />
          <IconButton
             iconStyle={styleIcon}
