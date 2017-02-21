@@ -129,7 +129,12 @@ export function checkAllNotification(arr) {
 export function checkNotification(arr, id) {
   const data = arr.map(item => {
     if (item.id === id) {
-      item.unread = false;
+      return {
+        id: item.id,
+        title: item.title,
+        unread: false,
+        datetime: item.datetime
+      };
     }
     return item;
   });

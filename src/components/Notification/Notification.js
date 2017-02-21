@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 import NotificationContainer from './NotificationContainer';
 
@@ -10,7 +10,7 @@ const styleIcon = {
   color: 'white'
 };
 
-export default class Notification extends Component {
+export default class Notification extends React.Component {
   static propTypes = {
     // notification
     open: React.PropTypes.bool,

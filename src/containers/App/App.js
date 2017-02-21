@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import Helmet from 'react-helmet';
 import config from '../../config';
 
@@ -60,21 +60,21 @@ injectTapEventPlugin();
     open: state.notification.open,
   }),
   {setTitle, setOpen, addNotification, checkNotification, sortNotification, pushState: push})
-export default class App extends Component {
+export default class App extends React.Component {
   static propTypes = {
-    children: PropTypes.object.isRequired,
+    children: React.PropTypes.object.isRequired,
     // react-router-redux
-    pushState: PropTypes.func.isRequired,
+    pushState: React.PropTypes.func.isRequired,
     // notification
-    data: PropTypes.array,
-    open: PropTypes.bool,
-    setOpen: PropTypes.func.isRequired,
-    addNotification: PropTypes.func.isRequired,
-    sortNotification: PropTypes.func.isRequired,
-    checkNotification: PropTypes.func.isRequired,
+    data: React.PropTypes.array,
+    open: React.PropTypes.bool,
+    setOpen: React.PropTypes.func.isRequired,
+    addNotification: React.PropTypes.func.isRequired,
+    sortNotification: React.PropTypes.func.isRequired,
+    checkNotification: React.PropTypes.func.isRequired,
     // appBar
-    title: PropTypes.string,
-    setTitle: PropTypes.func,
+    title: React.PropTypes.string,
+    setTitle: React.PropTypes.func,
   };
   state = {
     openMenu: false,

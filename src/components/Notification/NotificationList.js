@@ -1,12 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 import NotificationItem from './NotoficationItem';
 
-import {List} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
+import {List, ListItem} from 'material-ui/List';
 
 
-export default class NotificationList extends Component {
+export default class NotificationList extends React.Component {
   static propTypes = {
     data: React.PropTypes.array,
     checkNotification: React.PropTypes.func.isRequired,
@@ -14,14 +13,14 @@ export default class NotificationList extends Component {
   render() {
     const notification = this.props.data.map((item) => {
       if (item.unread) {
-        return <NotificationItem data={this.props.data} checkNotification={this.props.checkNotification} {...item} key={item.id}/>;
+        return <NotificationItem data={this.props.data} checkNotification={this.props.checkNotification} {...item} key={index}/>;
       }
     });
-    const notificationFilter = notification.splice(0, 5);
+    console.log(notification);
     return (
       <List>
-        <Subheader>Уведомления</Subheader>
-        {notificationFilter}
+        <ListItem primaryText={'Уведомления'} disabled/>
+        {notification}
       </List>
     );
   }

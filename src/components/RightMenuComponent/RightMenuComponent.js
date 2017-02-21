@@ -12,19 +12,14 @@ export default class RightMenuComponent extends React.Component {
     setOpen: React.PropTypes.func.isRequired,
     checkNotification: React.PropTypes.func.isRequired,
   };
-  state = {
-    data: this.props.data.filter(item => {return item.unread;}),
-  };
-  componentWillReceiveProps(nextProps) {
-    this.setState({data: nextProps.data.filter(item => {return item.unread;})});
-  }
   render() {
-    const viewBadge = this.state.data.length > 0 ? 'visible' : 'hidden';
+    const filterData = this.props.data.filter(item => {return item.unread;});
+    const viewBadge = filterData.length > 0 ? 'visible' : 'hidden';
     return (
       <Toolbar style={{background: 'transparent', marginTop: '-5px'}}>
         <ToolbarGroup>
           <Badge
-            badgeContent={this.state.data.length}
+            badgeContent={filterData.length}
             secondary
             badgeStyle={{top: '25px', right: '25px', visibility: viewBadge}}
             style={{marginBottom: '14px'}}

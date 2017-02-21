@@ -1,16 +1,16 @@
-import React, {Component, PropTypes} from 'react';
+import React from 'react';
 
 import NotificationList from './NotificationList';
 
 import Popover from 'material-ui/Popover/Popover';
 import {List, ListItem} from 'material-ui/List';
 
-export default class NotificationContainer extends Component {
+export default class NotificationContainer extends React.Component {
   static propTypes = {
-    open: PropTypes.bool.isRequired,
+    open: React.PropTypes.bool.isRequired,
     data: React.PropTypes.array,
-    anchorEl: PropTypes.object.isRequired,
-    closeNotification: PropTypes.func.isRequired,
+    anchorEl: React.PropTypes.object.isRequired,
+    closeNotification: React.PropTypes.func.isRequired,
     checkNotification: React.PropTypes.func.isRequired,
   };
   render() {

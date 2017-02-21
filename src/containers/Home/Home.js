@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import NotificationItem from '../../components/Notification/NotoficationItem';
 
@@ -27,7 +27,7 @@ const styleButton = {
     openAllNotification: state.notification.openAllNotification
   }),
   {setOpen, removeNotification, checkAllNotification, checkNotification, setOpenAllNotification, addNotification})
-export default class Home extends Component {
+export default class Home extends React.Component {
   static propTypes = {
     open: React.PropTypes.bool,
     openAllNotification: React.PropTypes.bool,
