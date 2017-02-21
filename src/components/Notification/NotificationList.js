@@ -13,7 +13,7 @@ export default class NotificationList extends React.Component {
   render() {
     const notification = this.props.data.map((item) => {
       if (item.unread) {
-        return <NotificationItem data={this.props.data} checkNotification={this.props.checkNotification} {...item} key={index}/>;
+        return <NotificationItem data={this.props.data} checkNotification={this.props.checkNotification} {...item} key={item.id}/>;
       }
     });
     console.log(notification);
