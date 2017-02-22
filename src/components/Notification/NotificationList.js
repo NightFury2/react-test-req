@@ -16,10 +16,11 @@ export default class NotificationList extends React.Component {
         return <NotificationItem data={this.props.data} checkNotification={this.props.checkNotification} {...item} key={item.id}/>;
       }
     });
+    const notificationFilter = notification.slice(0, 5);
     return (
       <List>
         <ListItem primaryText={'Уведомления'} disabled/>
-        {notification}
+        {notificationFilter}
       </List>
     );
   }
