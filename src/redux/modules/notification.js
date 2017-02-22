@@ -116,8 +116,7 @@ export function sortNotification(data) {
   return {type: SORT_NOTIFICATION, data};
 }
 export function checkAllNotification(arr) {
-  const data = arr.slice(0);
-  data.map(item => {
+  const data = arr.map(item => {
     return {
       id: item.id,
       title: item.title,
@@ -128,8 +127,7 @@ export function checkAllNotification(arr) {
   return {type: CHECK_ALL_NOTIFICATION, data};
 }
 export function checkNotification(arr, id) {
-  const data = arr.slice(0);
-  data.map(item => {
+  const data = arr.map(item => {
     if (item.id === id) {
       return {
         id: item.id,
