@@ -16,7 +16,6 @@ export default class NotificationList extends React.Component {
         return <NotificationItem data={this.props.data} checkNotification={this.props.checkNotification} {...item} key={item.id}/>;
       }
     });
-    console.log(notification);
     return (
       <List>
         <ListItem primaryText={'Уведомления'} disabled/>

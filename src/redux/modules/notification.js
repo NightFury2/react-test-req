@@ -140,12 +140,14 @@ export function checkNotification(arr, id) {
   });
   return {type: CHECK_NOTIFICATION, data};
 }
-export function removeNotification(data) {
+export function removeNotification(arr) {
+  const data = arr.slice(0);
   data.splice(0, data.length);
   return {type: REMOVE_NOTIFICATION, data};
 }
 
-export function addNotification(data, item) {
+export function addNotification(arr, item) {
+  const data = arr.slice(0);
   data.unshift(item);
   return {type: ADD_NOTIFICATION, data};
 }
