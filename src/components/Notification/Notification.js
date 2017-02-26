@@ -15,6 +15,9 @@ export default class Notification extends React.Component {
     // notification
     open: React.PropTypes.bool,
     data: React.PropTypes.array,
+    loaded: React.PropTypes.bool,
+    loadingNotification: React.PropTypes.bool,
+    loadingCheckNotification: React.PropTypes.bool,
     setOpen: React.PropTypes.func.isRequired,
     checkNotification: React.PropTypes.func.isRequired,
   };
@@ -38,6 +41,9 @@ export default class Notification extends React.Component {
        <div>
          <NotificationContainer
             checkNotification={this.props.checkNotification}
+            loaded={this.props.loaded}
+            loadingCheckNotification={this.props.loadingCheckNotification}
+            loadingNotification={this.props.loadingNotification}
             open={this.props.open}
             data={this.props.data}
             anchorEl={this.state.anchorEl}

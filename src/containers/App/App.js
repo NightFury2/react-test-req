@@ -13,9 +13,7 @@ import Drawer from 'material-ui/Drawer';
 import IconButton from 'material-ui/IconButton';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-
-import moment from 'moment';
-import 'moment/locale/ru';
+import {addScrollEvent, getTarget, removeScrollEvent} from '../../utils/events';
 
 import {
   cyan500, cyan700,
@@ -26,8 +24,9 @@ import {
 import {fade} from 'material-ui/utils/colorManipulator';
 
 import {setTitle} from '../../redux/modules/appBar';
-import {setOpen, addNotification, sortNotification, checkNotification} from '../../redux/modules/notification';
+import {setOpen, isLoaded as isLoadNotification, load as loadNotification, checkNotification} from '../../redux/modules/notification';
 import {connect} from 'react-redux';
+import { asyncConnect } from 'redux-async-connect';
 import {push} from 'react-router-redux';
 
 const muiTheme = {
@@ -53,13 +52,28 @@ const muiTheme = {
 };
 injectTapEventPlugin();
 
+@asyncConnect([{
+  promise: ({store: {dispatch, getState}}) => {
+    const promises = [];
+
+    if (!isLoadNotification(getState())) {
+      promises.push(dispatch(loadNotification()));
+    }
+    return Promise.all(promises);
+  }
+}])
 @connect(
   state => ({
     title: state.appBar.title,
     data: state.notification.data,
     open: state.notification.open,
+    loaded: state.notification.loaded,
+    errorLoadNotification: state.notification.errorLoadNotification,
+    errorCheckNotification: state.notification.errorCheckNotification,
+    loadingNotification: state.notification.loadingNotification,
+    loadingCheckNotification: state.notification.loadingCheckNotification,
   }),
-  {setTitle, setOpen, addNotification, checkNotification, sortNotification, pushState: push})
+  {setTitle, setOpen, checkNotification, pushState: push})
 export default class App extends React.Component {
   static propTypes = {
     children: React.PropTypes.object.isRequired,
@@ -68,9 +82,12 @@ export default class App extends React.Component {
     // notification
     data: React.PropTypes.array,
     open: React.PropTypes.bool,
+    loaded: React.PropTypes.bool,
+    loadingNotification: React.PropTypes.bool,
+    loadingCheckNotification: React.PropTypes.bool,
+    errorLoadNotification: React.PropTypes.object,
+    errorCheckNotification: React.PropTypes.object,
     setOpen: React.PropTypes.func.isRequired,
-    addNotification: React.PropTypes.func.isRequired,
-    sortNotification: React.PropTypes.func.isRequired,
     checkNotification: React.PropTypes.func.isRequired,
     // appBar
     title: React.PropTypes.string,
@@ -81,11 +98,17 @@ export default class App extends React.Component {
   };
   componentDidMount() {
     this.props.setTitle('Главная');
-    const arr = this.props.data.sort((item1, item2) => moment(item1.datetime) < moment(item2.datetime));
-    this.props.sortNotification(arr);
+    addScrollEvent(this.refs.appScroll, this.scrollComponent);
+  }
+  componentWillUnmount() {
+    removeScrollEvent(this.refs.appScroll, this.scrollComponent);
   }
   menuOpen = () => {
     this.setState({openMenu: true});
+  };
+  scrollComponent = (events) => {
+    const event = getTarget(events);
+    console.log(event);
   };
   menuClose = () => {
     this.setState({openMenu: false});
@@ -95,7 +118,7 @@ export default class App extends React.Component {
     const styles = require('./App.scss');
     return (
        <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
-          <div>
+          <div ref="appScroll">
             <div className={'row ' + styles.app}>
               <AppBar
                  style={{position: 'fixed'}}
@@ -103,6 +126,9 @@ export default class App extends React.Component {
                  iconElementLeft={<IconButton onTouchTap={this.menuOpen}><NavigationMenu/></IconButton>}
                  iconElementRight={
                    <RightMenuComponent checkNotification={this.props.checkNotification}
+                                       loaded={this.props.loaded}
+                                       loadingCheckNotification={this.props.loadingCheckNotification}
+                                       loadingNotification={this.props.loadingNotification}
                                        open={this.props.open}
                                        data={this.props.data}
                                        setOpen={this.props.setOpen}

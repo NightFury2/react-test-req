@@ -1,60 +1,30 @@
 const NOTIFICATION_MENU = 'NOTIFICATION_MENU';
 const SHOW_ALL_NOTIFICATION = 'SHOW_ALL_NOTIFICATION';
-const COUNT_BADGE = 'COUNT_BADGE';
+const LOAD_NOTIFICATION = 'LOAD_NOTIFICATION';
+const LOAD_NOTIFICATION_SUCCESS = 'LOAD_NOTIFICATION_SUCCESS';
+const LOAD_NOTIFICATION_FAIL = 'LOAD_NOTIFICATION_FAIL';
 const REMOVE_NOTIFICATION = 'REMOVE_NOTIFICATION';
+const REMOVE_NOTIFICATION_SUCCESS = 'REMOVE_NOTIFICATION_SUCCESS';
+const REMOVE_NOTIFICATION_FAIL = 'REMOVE_NOTIFICATION_FAIL';
 const CHECK_ALL_NOTIFICATION = 'CHECK_ALL_NOTIFICATION';
+const CHECK_ALL_NOTIFICATION_SUCCESS = 'CHECK_ALL_NOTIFICATION_SUCCESS';
+const CHECK_ALL_NOTIFICATION_FAIL = 'CHECK_ALL_NOTIFICATION_FAIL';
 const CHECK_NOTIFICATION = 'CHECK_NOTIFICATION';
+const CHECK_NOTIFICATION_SUCCESS = 'CHECK_NOTIFICATION_SUCCESS';
+const CHECK_NOTIFICATION_FAIL = 'CHECK_NOTIFICATION_FAIL';
 const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
-const SORT_NOTIFICATION = 'SORT_NOTIFICATION';
+const ADD_NOTIFICATION_SUCCESS = 'ADD_NOTIFICATION_SUCCESS';
+const ADD_NOTIFICATION_FAIL = 'ADD_NOTIFICATION_FAIL';
 
 const initialState = {
   open: false,
   openAllNotification: false,
-  count: 0,
-  data: [
-    {
-      id: 17,
-      title: 'Test test test 17',
-      unread: true,
-      datetime: new Date(),
-    },
-    {
-      id: 16,
-      title: 'Test test test 16',
-      unread: true,
-      datetime: new Date().setHours((new Date()).getHours() - 2),
-    },
-    {
-      id: 14,
-      title: 'Test test test 14',
-      unread: true,
-      datetime: new Date().setDate((new Date()).getDate() - 1),
-    },
-    {
-      id: 13,
-      title: 'Test test test 13',
-      unread: false,
-      datetime: new Date().setDate((new Date()).getDate() - 3),
-    },
-    {
-      id: 12,
-      title: 'Test test test 12',
-      unread: false,
-      datetime: new Date().setDate((new Date()).getDate() - 8),
-    },
-    {
-      id: 11,
-      title: 'Test test test 11',
-      unread: false,
-      datetime: new Date().setDate((new Date()).getDate() - 31),
-    },
-    {
-      id: 10,
-      title: 'Test test test 10',
-      unread: false,
-      datetime: new Date().setDate((new Date()).getDate() - 160),
-    }
-  ]
+  loaded: false,
+  errorLoadNotification: null,
+  errorCheckAllNotification: null,
+  errorCheckNotification: null,
+  errorRemoveNotification: null,
+  errorAddNotification: null,
 };
 
 export default function notification(state = initialState, action = {}) {
@@ -69,39 +39,115 @@ export default function notification(state = initialState, action = {}) {
         ...state,
         openAllNotification: action.openAllNotification
       };
-    case COUNT_BADGE:
+      // load
+    case LOAD_NOTIFICATION:
       return {
         ...state,
-        count: action.count
+        loadingNotification: true
       };
-    case REMOVE_NOTIFICATION:
+    case LOAD_NOTIFICATION_SUCCESS:
       return {
         ...state,
-        data: action.data
+        loadingNotification: false,
+        loaded: true,
+        data: action.result,
+        errorLoadNotification: null
       };
-    case ADD_NOTIFICATION:
+    case LOAD_NOTIFICATION_FAIL:
       return {
         ...state,
-        data: action.data
+        loadingNotification: false,
+        loaded: false,
+        data: null,
+        errorLoadNotification: action.error
       };
+      // check all
     case CHECK_ALL_NOTIFICATION:
       return {
         ...state,
-        data: action.data
+        loadingCheckAllNotification: true
       };
+    case CHECK_ALL_NOTIFICATION_SUCCESS:
+      return {
+        ...state,
+        loadingCheckAllNotification: false,
+        data: action.result,
+        errorCheckAllNotification: null
+      };
+    case CHECK_ALL_NOTIFICATION_FAIL:
+      return {
+        ...state,
+        loadingCheckAllNotification: false,
+        data: null,
+        errorCheckAllNotification: action.error
+      };
+      // check
     case CHECK_NOTIFICATION:
       return {
         ...state,
-        data: action.data
+        loadingCheckNotification: true
       };
-    case SORT_NOTIFICATION:
+    case CHECK_NOTIFICATION_SUCCESS:
       return {
         ...state,
-        data: action.data
+        loadingCheckNotification: false,
+        data: action.result,
+        errorCheckNotification: null
+      };
+    case CHECK_NOTIFICATION_FAIL:
+      return {
+        ...state,
+        loadingCheckNotification: false,
+        data: null,
+        errorCheckNotification: action.error
+      };
+      // remove
+    case REMOVE_NOTIFICATION:
+      return {
+        ...state,
+        loadingRemoveNotification: true
+      };
+    case REMOVE_NOTIFICATION_SUCCESS:
+      return {
+        ...state,
+        loadingRemoveNotification: false,
+        data: action.result,
+        errorRemoveNotification: null
+      };
+    case REMOVE_NOTIFICATION_FAIL:
+      return {
+        ...state,
+        loadingRemoveNotification: false,
+        data: null,
+        errorRemoveNotification: action.error
+      };
+      // add
+    case ADD_NOTIFICATION:
+      return {
+        ...state,
+        loadingAddNotification: true
+      };
+    case ADD_NOTIFICATION_SUCCESS:
+      return {
+        ...state,
+        loadingAddNotification: false,
+        data: action.result,
+        errorAddNotification: null
+      };
+    case ADD_NOTIFICATION_FAIL:
+      return {
+        ...state,
+        loadingAddNotification: false,
+        data: null,
+        errorAddNotification: action.error
       };
     default:
       return state;
   }
+}
+
+export function isLoaded(globalState) {
+  return globalState.notification && globalState.notification.loaded;
 }
 
 export function setOpen(open) {
@@ -112,42 +158,41 @@ export function setOpenAllNotification(openAllNotification) {
   return {type: SHOW_ALL_NOTIFICATION, openAllNotification};
 }
 
-export function sortNotification(data) {
-  return {type: SORT_NOTIFICATION, data};
-}
-export function checkAllNotification(arr) {
-  const data = arr.map(item => {
-    return {
-      id: item.id,
-      title: item.title,
-      unread: false,
-      datetime: item.datetime
-    };
-  });
-  return {type: CHECK_ALL_NOTIFICATION, data};
-}
-export function checkNotification(arr, id) {
-  const data = arr.map(item => {
-    if (item.id === id) {
-      return {
-        id: item.id,
-        title: item.title,
-        unread: false,
-        datetime: item.datetime
-      };
-    }
-    return item;
-  });
-  return {type: CHECK_NOTIFICATION, data};
-}
-export function removeNotification(arr) {
-  const data = arr.slice(0);
-  data.splice(0, data.length);
-  return {type: REMOVE_NOTIFICATION, data};
+export function load() {
+  return {
+    types: [LOAD_NOTIFICATION, LOAD_NOTIFICATION_SUCCESS, LOAD_NOTIFICATION_FAIL],
+    promise: (client) => client.get('/notification/loadNotification')
+  };
 }
 
-export function addNotification(arr, item) {
-  const data = arr.slice(0);
-  data.unshift(item);
-  return {type: ADD_NOTIFICATION, data};
+export function checkAllNotification() {
+  return {
+    types: [CHECK_ALL_NOTIFICATION, CHECK_ALL_NOTIFICATION_SUCCESS, CHECK_ALL_NOTIFICATION_FAIL],
+    promise: (client) => client.get('/notification/checkAllNotification')
+  };
+}
+
+export function checkNotification(id) {
+  return {
+    types: [CHECK_NOTIFICATION, CHECK_NOTIFICATION_SUCCESS, CHECK_NOTIFICATION_FAIL],
+    promise: (client) => client.post('/notification/checkNotification', {
+      data: id
+    })
+  };
+}
+
+export function removeNotification() {
+  return {
+    types: [REMOVE_NOTIFICATION, REMOVE_NOTIFICATION_SUCCESS, REMOVE_NOTIFICATION_FAIL],
+    promise: (client) => client.get('/notification/removeNotification')
+  };
+}
+
+export function addNotification(item) {
+  return {
+    types: [ADD_NOTIFICATION, ADD_NOTIFICATION_SUCCESS, ADD_NOTIFICATION_FAIL],
+    promise: (client) => client.post('/notification/addNotification', {
+      data: item
+    })
+  };
 }

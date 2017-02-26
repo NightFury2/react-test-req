@@ -9,11 +9,14 @@ export default class RightMenuComponent extends React.Component {
     // notification
     data: React.PropTypes.array,
     open: React.PropTypes.bool,
+    loaded: React.PropTypes.bool,
+    loadingNotification: React.PropTypes.bool,
+    loadingCheckNotification: React.PropTypes.bool,
     setOpen: React.PropTypes.func.isRequired,
     checkNotification: React.PropTypes.func.isRequired,
   };
   render() {
-    const filterData = this.props.data.filter(item => {return item.unread;});
+    const filterData = this.props.loaded && this.props.data ? this.props.data.filter(item => {return item.unread;}) : [];
     const viewBadge = filterData.length > 0 ? 'visible' : 'hidden';
     return (
       <Toolbar style={{background: 'transparent', marginTop: '-5px'}}>
@@ -25,6 +28,9 @@ export default class RightMenuComponent extends React.Component {
             style={{marginBottom: '14px'}}
           >
             <Notification setOpen={this.props.setOpen}
+                          loaded={this.props.loaded}
+                          loadingCheckNotification={this.props.loadingCheckNotification}
+                          loadingNotification={this.props.loadingNotification}
                           checkNotification={this.props.checkNotification}
                           data={this.props.data}
                           open={this.props.open}
