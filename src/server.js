@@ -19,15 +19,13 @@ import createHistory from 'react-router/lib/createMemoryHistory';
 import {Provider} from 'react-redux';
 import getRoutes from './routes';
 
-const targetUrl = 'https://' + config.apiHost + config.apiPort;
 const pretty = new PrettyError();
 const app = new Express();
 const server = new http.Server(app);
-
 const proxy = httpProxy.createProxyServer({
-  target: targetUrl,
+  target: 'http://' + config.apiHost + ':' + config.apiPort,
   ws: true
-}).listen(config.port);
+});
 
 app.use(compression());
 app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
@@ -36,16 +34,7 @@ app.use(Express.static(path.join(__dirname, '..', 'static')));
 
 // Proxy to API server
 app.use('/api', (req, res) => {
-  console.log(req.url);
-  proxy.web(req, res, {target: targetUrl});
-});
-
-app.use('/ws', (req, res) => {
-  proxy.web(req, res, {target: targetUrl + '/ws'});
-});
-
-server.on('upgrade', (req, socket, head) => {
-  proxy.ws(req, socket, head);
+  proxy.web(req, res);
 });
 
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527

@@ -107,8 +107,8 @@ export default class Home extends React.Component {
     const textToggle = this.props.open ? 'Скрыть' : 'Показать';
     const textToggleAllNotification = this.props.openAllNotification ? 'Скрыть' : 'Показать';
     const styleShowAllNotification = this.props.openAllNotification ? 'block' : 'none';
-    const loadingAddNotification = this.props.loadingAddNotification ? <CircularProgress size={20} thickness={1}/> : '';
-    const loadingCheckAllNotification = this.props.loadingCheckAllNotification ? <CircularProgress size={20} thickness={1}/> : '';
+    const loadingAddNotification = this.props.loadingAddNotification ? <CircularProgress size={20} thickness={2}/> : '';
+    const loadingCheckAllNotification = this.props.loadingCheckAllNotification ? <CircularProgress size={20} thickness={2}/> : '';
     const loadingRemoveNotification = this.props.loadingRemoveNotification ? <CircularProgress size={20} thickness={1}/> : '';
     const notification = this.props.loaded ? this.props.data.map((item) => {
       return <NotificationItem data={this.props.data} loadingCheckNotification={this.props.loadingCheckNotification} checkNotification={this.props.checkNotification} {...item} key={item.id}/>;
