@@ -19,7 +19,7 @@ import createHistory from 'react-router/lib/createMemoryHistory';
 import {Provider} from 'react-redux';
 import getRoutes from './routes';
 
-const targetUrl = 'https://' + config.apiHost + config.apiPort;
+const targetUrl = 'http://' + config.apiHost + config.apiPort;
 const pretty = new PrettyError();
 const app = new Express();
 const server = new http.Server(app);
@@ -35,7 +35,7 @@ app.use(Express.static(path.join(__dirname, '..', 'static')));
 
 // Proxy to API server
 app.use('/api', (req, res) => {
-  console.log(req);
+  console.log(req.url);
   proxy.web(req, res, {target: targetUrl});
 });
 

@@ -54,6 +54,7 @@ injectTapEventPlugin();
 
 @asyncConnect([{
   promise: ({store: {dispatch, getState}}) => {
+    console.log('loading');
     const promises = [];
 
     if (!isLoadNotification(getState())) {
