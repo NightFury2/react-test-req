@@ -11,6 +11,7 @@ import ApiClient from './helpers/ApiClient';
 import Html from './helpers/Html';
 import PrettyError from 'pretty-error';
 import http from 'http';
+import fs from 'fs';
 
 import { match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
@@ -20,12 +21,20 @@ import {Provider} from 'react-redux';
 import getRoutes from './routes';
 
 const targetUrl = 'https://' + config.apiHost + config.apiPort;
+fixturesDir = path.join(__dirname, '..', '..', 'static');
 const pretty = new PrettyError();
 const app = new Express();
 const server = new http.Server(app);
+httpsOpts = {
+  key: fs.readFileSync(path.join(fixturesDir, 'agent2-key.pem'), 'utf8'),
+  cert: fs.readFileSync(path.join(fixturesDir, 'agent2-cert.pem'), 'utf8')
+};
+console.log(httpsOpts);
 const proxy = httpProxy.createProxyServer({
+  ssl: httpsOpts,
   target: targetUrl,
-  ws: true
+  ws: true,
+  secure: false
 });
 
 app.use(compression());
