@@ -23,7 +23,7 @@ const pretty = new PrettyError();
 const app = new Express();
 const server = new http.Server(app);
 const proxy = httpProxy.createProxyServer({
-  target: 'http://' + config.apiHost + config.apiPort,
+  target: 'https://' + config.apiHost + config.apiPort,
   ws: true
 });
 
