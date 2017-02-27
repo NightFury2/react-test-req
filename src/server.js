@@ -25,13 +25,8 @@ const fixturesDir = path.join(__dirname, '..', '..', 'static');
 const pretty = new PrettyError();
 const app = new Express();
 const server = new http.Server(app);
-const httpsOpts = {
-  key: fs.readFileSync(path.join(fixturesDir, 'agent2-key.pem'), 'utf8'),
-  cert: fs.readFileSync(path.join(fixturesDir, 'agent2-cert.pem'), 'utf8')
-};
-console.log(httpsOpts);
+
 const proxy = httpProxy.createProxyServer({
-  ssl: httpsOpts,
   target: targetUrl,
   ws: true,
   secure: false
