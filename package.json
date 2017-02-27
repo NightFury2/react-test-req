@@ -54,7 +54,6 @@
         "PORT": 3000,
         "APIPORT": 3030
       }
-    }
     },
     "watch-client": {
       "command": "node webpack/webpack-dev-server.js",
