@@ -15,11 +15,11 @@ export default class NotificationList extends React.Component {
     checkNotification: React.PropTypes.func.isRequired,
   };
   render() {
-    const notification = this.props.loaded ? this.props.data.reduceRight((arr, item) => {
+    const notification = this.props.loaded ? this.props.data.map(item => {
       if (item.unread) {
-        arr.push(<NotificationItem data={this.props.data} loadingCheckNotification={this.props.loadingCheckNotification} checkNotification={this.props.checkNotification} {...item} key={item.id}/>);
+        return <NotificationItem data={this.props.data} loadingCheckNotification={this.props.loadingCheckNotification} checkNotification={this.props.checkNotification} {...item} key={item.id}/>;
       }
-    }, []) : <ListItem primaryText={'Сервер не доступен'} disabled/>;
+    }) : <ListItem primaryText={'Сервер не доступен'} disabled/>;
     const loadingNotification = this.props.loadingNotification ? <CircularProgress/> : notification;
     return (
       <List>
