@@ -5,14 +5,10 @@ const methods = ['get', 'post', 'put', 'patch', 'del'];
 
 function formatUrl(path) {
   const adjustedPath = path[0] !== '/' ? '/' + path : path;
-  if (__SERVER__) {
-    // Prepend host and port of the API server to the path.
-    const href = 'https://' + config.apiHost  + config.apiPort + adjustedPath;
-    console.log(href);
-    return href;
-  }
-  // Prepend `/api` to relative URL, to proxy to API server.
-  return '/api' + adjustedPath;
+  // Prepend host and port of the API server to the path.
+  const href = 'https://' + config.apiHost  + config.apiPort + adjustedPath;
+  console.log(href);
+  return href;
 }
 
 export default class ApiClient {

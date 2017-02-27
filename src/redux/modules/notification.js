@@ -191,7 +191,7 @@ export function removeNotification() {
 export function addNotification(item) {
   return {
     types: [ADD_NOTIFICATION, ADD_NOTIFICATION_SUCCESS, ADD_NOTIFICATION_FAIL],
-    promise: (client) => client.post('/api/notification/addNotification', {
+    promise: (client) => client.post('/notification/addNotification', {
       data: item
     })
   };
