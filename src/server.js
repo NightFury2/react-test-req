@@ -21,11 +21,11 @@ import {Provider} from 'react-redux';
 import getRoutes from './routes';
 
 const targetUrl = 'https://' + config.apiHost + config.apiPort;
-fixturesDir = path.join(__dirname, '..', '..', 'static');
+const fixturesDir = path.join(__dirname, '..', '..', 'static');
 const pretty = new PrettyError();
 const app = new Express();
 const server = new http.Server(app);
-httpsOpts = {
+const httpsOpts = {
   key: fs.readFileSync(path.join(fixturesDir, 'agent2-key.pem'), 'utf8'),
   cert: fs.readFileSync(path.join(fixturesDir, 'agent2-cert.pem'), 'utf8')
 };
