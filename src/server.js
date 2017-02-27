@@ -11,7 +11,7 @@ import ApiClient from './helpers/ApiClient';
 import Html from './helpers/Html';
 import PrettyError from 'pretty-error';
 import http from 'http';
-import fs from 'fs';
+import herokuProxy from 'heroku-proxy';
 
 import { match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
@@ -21,15 +21,14 @@ import {Provider} from 'react-redux';
 import getRoutes from './routes';
 
 const targetUrl = 'https://' + config.apiHost + config.apiPort;
-const fixturesDir = path.join(__dirname, '..', '..', 'static');
 const pretty = new PrettyError();
 const app = new Express();
 const server = new http.Server(app);
 
-const proxy = httpProxy.createProxyServer({
-  target: targetUrl,
-  ws: true,
-  secure: false
+const proxy = herokuProxy({
+  hostname: targetUrl,
+  port    : 5001,
+  protocol: 'https'
 });
 
 app.use(compression());
@@ -40,11 +39,11 @@ app.use(Express.static(path.join(__dirname, '..', 'static')));
 // Proxy to API server
 app.use('/api', (req, res) => {
   console.log(req.url);
-  proxy.web(req, res, {target: targetUrl});
+  proxy.web(req, res, {hostname: targetUrl});
 });
 
 app.use('/ws', (req, res) => {
-  proxy.web(req, res, {target: targetUrl + '/ws'});
+  proxy.web(req, res, {hostname: targetUrl + '/ws'});
 });
 
 server.on('upgrade', (req, socket, head) => {
