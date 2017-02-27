@@ -7,7 +7,7 @@ function formatUrl(path) {
   const adjustedPath = path[0] !== '/' ? '/' + path : path;
   if (__SERVER__) {
     // Prepend host and port of the API server to the path.
-    const href = 'http://' + config.apiHost + ':' + config.apiPort + adjustedPath;
+    const href = 'https://' + config.apiHost  + config.apiPort + adjustedPath;
     console.log(href);
     return href;
   }
