@@ -41,8 +41,7 @@
       "command": "node ./bin/server.js",
       "env": {
         "NODE_PATH": "./src",
-        "NODE_ENV": "production",
-        "APIHOST": "node-api-sever.herokuapp.com"
+        "NODE_ENV": "production"
       }
     },
     "start-dev": {
@@ -50,8 +49,7 @@
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "development",
-        "PORT": 3000,
-        "APIPORT": ":3030"
+        "PORT": 3000
       }
     },
     "watch-client": {
